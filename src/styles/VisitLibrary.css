@@ -1,0 +1,89 @@
+/* Container */
+.visit-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: white;
+  background-color: #174996;
+}
+
+/* Titles & Intro */
+.visit-title {
+  margin-bottom: 10px;
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.visit-intro {
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.info-section {
+  background: #f7f7f7;
+  padding: 15px 20px;
+  border-radius: 6px;
+  margin-bottom: 30px;
+  color: #174996;
+}
+
+.info-section h3 {
+  margin-top: 0;
+}
+
+.info-section ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+/* Form container styled like a card */
+.booking-form {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  color: #174996;
+}
+
+/* Labels */
+.booking-form label {
+  display: block;
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+
+/* Inputs, selects, textarea */
+.booking-form input,
+.booking-form select,
+.booking-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.booking-form input:focus,
+.booking-form select:focus,
+.booking-form textarea:focus {
+  outline: none;
+  border-color: #5b8dee;
+}
+
+/* Submit button */
+.submit-btn {
+  margin-top: 10px;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 4px;
+  background: #5b8dee;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover {
+  background: #4874c6;
+}

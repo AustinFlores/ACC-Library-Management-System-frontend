@@ -1,0 +1,74 @@
+.hero-container {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: #174996;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  margin-left: 3.5em;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.hero-image {
+  position:absolute;
+  top: 0;
+  right:0;
+  height: 100%;
+}
+
+.title-container {
+  font-size:2.4rem;
+}
+
+.title-1 {
+  font-size: 5rem;
+  line-height: .6em;
+}
+
+.title-2 {
+  color: rgb(97, 158, 255);
+}
+
+.hero-subtitle {
+  letter-spacing: .08em;
+  margin-bottom: 1em;
+}
+
+.btn-primary {
+  font-size: 1.5rem;
+  letter-spacing: .08em;
+  font-weight: 600;
+  padding: .5em 1.5em;
+  margin-bottom: .6em;
+  cursor: pointer;
+  border-radius: 0.25em;
+  border: .13em solid #f4c43c;
+  background-color: #f4c43c;
+  color: #174996;
+}
+
+.btn-primary:hover {
+  background-color: transparent;
+  color: #f4c43c;
+  transition: ease-in .1s;
+}
+
+.signup-text {
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.link {
+  color: #f4c43c;
+  letter-spacing: inherit;
+}
+
+.link:hover {
+  color: #2d7eff;
+}

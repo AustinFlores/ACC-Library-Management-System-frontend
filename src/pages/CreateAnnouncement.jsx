@@ -11,11 +11,12 @@ function CreateAnnouncement() {
   const [status, setStatus] = useState(null);
   const [announcements, setAnnouncements] = useState([]);
   const [editingId, setEditingId] = useState(null);
+  const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
   // --- Fetch announcements ---
   const fetchAnnouncements = async () => {
     try {
-      const res = await axios.get("/api/announcements");
+      const res = await axios.get(`${URL}/api/announcements`);
       if (res.data.success) {
         setAnnouncements(res.data.announcements);
       }
@@ -41,7 +42,7 @@ function CreateAnnouncement() {
     try {
       if (editingId) {
         // Update announcement
-        const res = await axios.put(`/api/announcements/${editingId}`, {
+        const res = await axios.put(`${URL}/api/announcements/${editingId}`, {
           title,
           message,
         });
@@ -55,7 +56,7 @@ function CreateAnnouncement() {
         }
       } else {
         // Create new announcement
-        const res = await axios.post("/api/announcements", { title, message });
+        const res = await axios.post(`${URL}/api/announcements`, { title, message });
 
         if (res.data.success) {
           setStatus({ type: "success", text: "Announcement created successfully." });
@@ -95,7 +96,7 @@ function CreateAnnouncement() {
     if (!window.confirm("Are you sure you want to delete this announcement?")) return;
 
     try {
-      const res = await axios.delete(`/api/announcements/${id}`);
+      const res = await axios.delete(`${URL}/api/announcements/${id}`);
       if (res.data.success) {
         setAnnouncements((prev) => prev.filter((a) => a.id !== id));
         setStatus({ type: "success", text: "Announcement deleted successfully." });

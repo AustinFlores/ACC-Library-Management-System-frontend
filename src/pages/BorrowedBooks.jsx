@@ -17,6 +17,7 @@ function BorrowedBooks() {
   // --- Authorization and Data Fetching ---
   useEffect(() => {
     const fetchBorrowedBooks = async () => {
+      const URL = "https://acc-library-management-system-backend-1.onrender.com";
       setLoading(true);
       setError(null);
 
@@ -30,7 +31,7 @@ function BorrowedBooks() {
       }
 
       try {
-        const response = await axios.get(`/api/student/borrowed-books?studentId=${user.id}`);
+        const response = await axios.get(`${URL}/api/student/borrowed-books?studentId=${user.id}`);
         if (response.data.success !== undefined && !response.data.success) {
           throw new Error(response.data.error || 'Failed to fetch borrowed books.');
         }

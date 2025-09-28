@@ -12,6 +12,7 @@ function ManageStudents() {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
   // --- Authorization Check ---
   useEffect(() => {
@@ -27,7 +28,7 @@ function ManageStudents() {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get('/api/students');
+        const response = await axios.get(`${URL}/api/students`);
         if (response.data.success) {
           setStudents(response.data.students);
         } else {
@@ -51,7 +52,7 @@ function ManageStudents() {
     if (!window.confirm(`Are you sure you want to delete student ${studentId}?`)) return;
 
     try {
-      const response = await axios.delete(`/api/students/${studentId}`);
+      const response = await axios.delete(`${URL}/api/students/${studentId}`);
       if (response.data.success) {
         setStudents(prevStudents =>
           prevStudents.filter(student => student.id !== studentId)

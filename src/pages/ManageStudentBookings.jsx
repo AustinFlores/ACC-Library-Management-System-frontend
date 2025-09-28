@@ -13,6 +13,7 @@ function ManageStudentBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
   // --- Authorization and Data Fetching ---
   useEffect(() => {
@@ -30,7 +31,7 @@ function ManageStudentBookings() {
 
       try {
         // NEW API Endpoint: /api/student/bookings
-        const response = await axios.get(`/api/student/bookings?studentEmail=${user.email}`);
+        const response = await axios.get(`${URL}/api/student/bookings?studentEmail=${user.email}`);
         if (response.data.success !== undefined && !response.data.success) {
           throw new Error(response.data.error || 'Failed to fetch your bookings.');
         }
@@ -52,7 +53,7 @@ function ManageStudentBookings() {
 
     try {
       // Assuming a backend endpoint POST /api/bookings/cancel
-      const response = await axios.post('/api/bookings/cancel', { bookingId });
+      const response = await axios.post(`${URL}/api/bookings/cancel`, { bookingId });
       if (response.data.success) {
         setBookings(prevBookings => prevBookings.filter(b => b.id !== bookingId)); // Remove from list
         alert('Booking cancelled successfully!');

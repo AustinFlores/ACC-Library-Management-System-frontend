@@ -19,6 +19,7 @@ function DashboardHome() {
   // Consolidate loading/error states for a cleaner UI if desired, or keep separate
   const [loadingDashboard, setLoadingDashboard] = useState(true);
   const [errorDashboard, setErrorDashboard] = useState(null);
+  const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
   // --- Fetch All Dashboard Data ---
   const fetchDashboardData = async (showLoading = true) => { // Added showLoading param
@@ -27,14 +28,14 @@ function DashboardHome() {
 
     try {
       // Fetch core stats
-      const statsRes = await axios.get('/api/librarian/stats');
+      const statsRes = await axios.get(`${URL}/api/librarian/stats`);
       if (statsRes.data.success !== undefined && !statsRes.data.success) {
           throw new Error(statsRes.data.error || 'Failed to fetch statistics');
       }
       setStats(statsRes.data);
 
       // Fetch recent activity
-      const activityRes = await axios.get('/api/librarian/recent-activity');
+      const activityRes = await axios.get(`${URL}/api/librarian/recent-activity`);
       if (activityRes.data.success !== undefined && !activityRes.data.success) {
           throw new Error(activityRes.data.error || 'Failed to fetch recent activity');
       }
@@ -42,14 +43,14 @@ function DashboardHome() {
       // console.log(activityRes.data.activity); // Keep for debugging if needed
 
       // Fetch overdue books
-      const overdueRes = await axios.get('/api/librarian/overdue-books');
+      const overdueRes = await axios.get(`${URL}/api/librarian/overdue-books`);
       if (overdueRes.data.success !== undefined && !overdueRes.data.success) {
           throw new Error(overdueRes.data.error || 'Failed to fetch overdue books');
       }
       setOverdueBooks(overdueRes.data.books);
 
       // Fetch pending borrow requests
-      const pendingRes = await axios.get('/api/librarian/pending-borrows');
+      const pendingRes = await axios.get(`${URL}/api/librarian/pending-borrows`);
       if (pendingRes.data.success !== undefined && !pendingRes.data.success) {
           throw new Error(pendingRes.data.error || 'Failed to fetch pending borrow requests');
       }
@@ -89,7 +90,7 @@ function DashboardHome() {
     try {
       // Temporarily disable buttons or show a specific action loading state
       setLoadingDashboard(true); // Disable all actions during update
-      const response = await axios.post('/api/librarian/borrow-requests/update-status', {
+      const response = await axios.post(`${URL}/api/librarian/borrow-requests/update-status`, {
         requestId,
         actionType, // 'Accept' or 'Reject'
       });

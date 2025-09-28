@@ -16,6 +16,7 @@ function Signup() {
   const [successMessage, setSuccessMessage] = useState('');
   const [qrImage, setQrImage] = useState(''); // QR code image (data:, http(s):, or blob:)
   const [lastGeneratedId, setLastGeneratedId] = useState(''); // for filename
+  const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -23,13 +24,14 @@ function Signup() {
     setQrImage('');
 
     try {
-      const res = await axios.post('http://localhost:3000/signup', formData);
+      const res = await axios.post(`${URL}
+acc-library-management-system.com/signup`, formData);
       console.log(res.data);
 
       if (res.data.success) {
         setSuccessMessage('Signup successful! You can now sign in.');
 
-        const qrRes = await axios.get(`http://localhost:5000/generate-qr?id=${formData.id}`);
+        const qrRes = await axios.get(`${URL}/generate-qr?id=${formData.id}`);
         if (qrRes.data?.success && qrRes.data?.qrImage) {
           let img = qrRes.data.qrImage;
 

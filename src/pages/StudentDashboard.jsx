@@ -18,11 +18,12 @@ function StudentDashboard() {
   const [recommendedBooks, setRecommendedBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
   // --- Fetch announcements separately ---
   const fetchAnnouncements = async () => {
     try {
-      const res = await axios.get('/api/announcements');
+      const res = await axios.get(`${URL}/api/announcements`);
       if (res.data.success) {
         setAnnouncements(res.data.announcements);
       }
@@ -47,14 +48,14 @@ function StudentDashboard() {
 
       try {
         // Fetch stats
-        const statsResponse = await axios.get(`/api/student/dashboard-stats?studentId=${user.id}`);
+        const statsResponse = await axios.get(`${URL}/api/student/dashboard-stats?studentId=${user.id}`);
         if (statsResponse.data.success !== undefined && !statsResponse.data.success) {
           throw new Error(statsResponse.data.error || 'Failed to fetch student statistics');
         }
         setStats(statsResponse.data);
 
         // Fetch recommendations
-        const recResponse = await axios.get(`/api/student/recommendations?studentId=${user.id}`);
+        const recResponse = await axios.get(`${URL}/api/student/recommendations?studentId=${user.id}`);
         if (recResponse.data.success !== undefined && !recResponse.data.success) {
           throw new Error(recResponse.data.error || 'Failed to fetch book recommendations');
         }

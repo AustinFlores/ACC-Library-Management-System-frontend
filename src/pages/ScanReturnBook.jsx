@@ -104,6 +104,7 @@ function ScanReturnBook() {
 
   // --- Effect to control scanning ---
   useEffect(() => {
+    const URL = "https://acc-library-management-system-backend-1.onrender.com";
     const qrCodeSuccessCallback = async (decodedText) => {
       // normalize scanned value early, so we can dedupe immediately
       let scannedRaw = String(decodedText ?? "").trim();
@@ -140,7 +141,7 @@ function ScanReturnBook() {
 
         console.log("📤 Sending book_id to backend:", bookId);
 
-        const response = await axios.post("/api/books/return", { book_id: bookId });
+        const response = await axios.post(`${URL}/api/books/return`, { book_id: bookId });
 
         if (response.data?.success) {
           setStatusMessage({

@@ -16,6 +16,7 @@ function BorrowRequest() {
   const [pickupTime, setPickupTime] = useState('');
   const [submissionMessage, setSubmissionMessage] = useState('');
   const [messageType, setMessageType] = useState(''); // 'success' or 'error'
+  const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
   // Redirect if no book data is found or user is not logged in as a student
   useEffect(() => {
@@ -72,7 +73,7 @@ function BorrowRequest() {
     }
 
     try {
-      const response = await axios.post('/api/borrow/request', {
+      const response = await axios.post(`${URL}/api/borrow/request`, {
         bookId: book.id,
         studentId: user.id,
         pickupDate,

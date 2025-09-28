@@ -20,9 +20,10 @@ function VisitLibrary() {
   }
 
   async function handleSubmit(event) {
+    const URL = "https://acc-library-management-system-backend-1.onrender.com";
   event.preventDefault();
   try {
-    const res = await fetch("/api/bookings", {
+    const res = await fetch(`${URL}/api/bookings`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData)

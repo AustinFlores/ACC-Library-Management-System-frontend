@@ -11,6 +11,7 @@ function ViewBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
   // --- Authorization Check ---
   useEffect(() => {
@@ -27,7 +28,7 @@ function ViewBookings() {
       setError(null);
       try {
         // Assume you have an API endpoint like /api/bookings
-        const response = await axios.get('/api/bookings'); 
+        const response = await axios.get(`${URL}/api/bookings`); 
         if (response.data.success) {
           setBookings(response.data.bookings);
         } else {

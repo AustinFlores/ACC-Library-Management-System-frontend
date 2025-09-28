@@ -13,6 +13,7 @@ function OverdueBooks() {
   const [overdueBooks, setOverdueBooks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
   // --- Authorization and Data Fetching ---
   useEffect(() => {
@@ -29,7 +30,7 @@ function OverdueBooks() {
       }
 
       try {
-        const response = await axios.get(`/api/student/overdue-books?studentId=${user.id}`);
+        const response = await axios.get(`${URL}/api/student/overdue-books?studentId=${user.id}`);
         if (response.data.success !== undefined && !response.data.success) {
           throw new Error(response.data.error || 'Failed to fetch overdue books.');
         }

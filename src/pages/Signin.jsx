@@ -110,17 +110,11 @@ function Signin() {
 
     try {
       const URL = "https://acc-library-management-system-backend-1.onrender.com";
-      const response = await fetch(`${URL}/signin`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password
-      })
+      const response = await axios.post(`${URL}/signin`, {
+      email: formData.email,
+      password: formData.password
     });
-      const data = await response.text();
+      const data = await response.data;
 
       if (data.success) {
         handleLoginSuccess(data);

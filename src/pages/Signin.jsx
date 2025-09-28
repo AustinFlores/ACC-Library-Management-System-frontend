@@ -59,11 +59,10 @@ function Signin() {
 
       try {
         if (scanner && scanner.isScanning) await scanner.stop();
-        const url = new URL(decodedText);
-        const studentId = url.searchParams.get("id");
+        const studentId = decodedText;
         if (!studentId) throw new Error("Invalid QR code: Missing student ID.");
 
-        const response = await fetch(`/verify?id=${studentId}`);
+        const response = await fetch(`${URL}/verify?id=${studentId}`);
         const data = await response.json();
 
         if (data.success) {
@@ -111,11 +110,7 @@ function Signin() {
 
     try {
       const URL = "https://acc-library-management-system-backend-1.onrender.com";
-      const response = await fetch(`${URL}/signin`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(`${URL}/signin`, formData);
       const data = await response.json();
 
       if (data.success) {

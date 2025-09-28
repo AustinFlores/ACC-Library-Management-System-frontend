@@ -24,8 +24,7 @@ function Signup() {
     setQrImage('');
 
     try {
-      const res = await axios.post(`${URL}
-https://acc-library-management-system-frontend.onrender.com/signup`, formData);
+      const res = await axios.post(`${URL}/signup`, formData);
       console.log(res.data);
 
       if (res.data.success) {

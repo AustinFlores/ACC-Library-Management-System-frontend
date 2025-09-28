@@ -1,0 +1,102 @@
+/* client/src/styles/ManageStudents.css */
+
+/*
+  This file specifically styles the table layout for ManageStudents.
+  It relies on global variables and common table styles defined in LibrarianDashboard.css.
+*/
+
+/* --- Table Grid Layout for Manage Students --- */
+.admin-page-content table.data-table {
+  /* Default grid for larger screens (7 columns) */
+  grid-template-columns: var(--manage-students-grid-columns, 1fr 1.2fr 1fr 1fr 1fr 1fr); 
+}
+
+.admin-page-content table.data-table.bookings-table {
+  /* Default grid for larger screens (7 columns) */
+  grid-template-columns: var(--manage-students-grid-columns, 1.2fr 1.6fr 1fr 1fr 1fr 1fr 1fr 1fr); 
+}
+
+.delete-button {
+  background-color: #d9534f; /* Bootstrap red */
+  color: white;
+  border: none;
+  padding: 0.8rem 1.6rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  font-size: 1rem;
+}
+
+.delete-button:hover {
+  background-color: #c9302c;
+}
+
+
+/* --- Specific Cell Alignment / Overrides --- */
+/* If you need specific text alignment for columns in THIS table, define here */
+.admin-page-content table.data-table td:nth-child(1), /* ID */
+.admin-page-content table.data-table th:nth-child(1) {
+  text-align: left;
+}
+.admin-page-content table.data-table td:nth-child(6), /* Status */
+.admin-page-content table.data-table th:nth-child(6) {
+  text-align: center;
+}
+
+
+/* Ensure they work well within the 'table-actions-cell' */
+.table-actions-cell {
+  display: flex;
+  justify-content: center; /* Align actions to the right within their cell */
+  align-items: center;
+  gap: 0.5rem; /* Space between buttons if you add more */
+  position: relative; /* For dropdown positioning */
+}
+
+/* --- Responsive Table Adjustments for Manage Students --- */
+/* Desktop (default) should have 7 columns */
+
+@media (max-width: 1200px) {
+  .admin-page-content table.data-table {
+    /* Hide Course for smaller desktops */
+    grid-template-columns: var(--manage-students-grid-columns, 0.8fr 1.5fr 1.5fr 1fr 1fr 1.2fr); /* 6 columns */
+  }
+  .admin-page-content table.data-table th:nth-child(4), /* Course header */
+  .admin-page-content table.data-table td:nth-child(4) { /* Course data */
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .admin-page-content table.data-table {
+    /* Hide Year Level */
+    grid-template-columns: var(--manage-students-grid-columns, 0.8fr 1.5fr 1.5fr 1fr 1.2fr); /* 5 columns */
+  }
+  .admin-page-content table.data-table th:nth-child(5), /* Year Level header */
+  .admin-page-content table.data-table td:nth-child(5) { /* Year Level data */
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-page-content table.data-table {
+    /* Hide Email */
+    grid-template-columns: var(--manage-students-grid-columns, 1fr 1.5fr 1fr 1.2fr); /* 4 columns */
+  }
+  .admin-page-content table.data-table th:nth-child(3), /* Email header */
+  .admin-page-content table.data-table td:nth-child(3) { /* Email data */
+    display: none;
+  }
+
+}
+
+@media (max-width: 576px) {
+  .admin-page-content table.data-table {
+    /* Hide Name */
+    grid-template-columns: var(--manage-students-grid-columns, 1fr 1fr 1.2fr); /* 3 columns */
+  }
+  .admin-page-content table.data-table th:nth-child(2), /* Name header */
+  .admin-page-content table.data-table td:nth-child(2) { /* Name data */
+    display: none;
+  }
+}

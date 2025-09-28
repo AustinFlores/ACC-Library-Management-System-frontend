@@ -1,64 +1,99 @@
 // client/src/pages/BorrowRequest.jsx
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // Import useLocation to get state
-import axios from 'axios'; // For future API call to submit the request
-import Header from './Header'; // Assuming you want the header here too
-import '../styles/BorrowRequest.css'; // Create this CSS file for styling
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Header from './Header';
+import { useAuth } from '../context/AuthContext'; // Import useAuth to get student details
+import '../styles/BorrowRequest.css';
 
 function BorrowRequest() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { book } = location.state || {}; // Get book data from navigation state
+  const { user, isLoggedIn } = useAuth();
+  const { book } = location.state || {};
 
   const [pickupDate, setPickupDate] = useState('');
   const [pickupTime, setPickupTime] = useState('');
   const [submissionMessage, setSubmissionMessage] = useState('');
+  const [messageType, setMessageType] = useState(''); // 'success' or 'error'
 
-  // Redirect if no book data is found (e.g., user navigated directly)
+  // Redirect if no book data is found or user is not logged in as a student
   useEffect(() => {
     if (!book) {
-      navigate('/browsebooks'); // Redirect back if no book selected
+      setSubmissionMessage('No book selected for borrowing.');
+      setMessageType('error');
+      setTimeout(() => navigate('/browse-books', { replace: true }), 2000);
+      return;
     }
-  }, [book, navigate]);
+    if (!isLoggedIn) {
+      setSubmissionMessage('You must be logged in to borrow books.');
+      setMessageType('error');
+      setTimeout(() => navigate('/signin', { replace: true }), 2000);
+      return;
+    }
+    if (user && user.role !== 'student') {
+        setSubmissionMessage('Only students can borrow books.');
+        setMessageType('error');
+        setTimeout(() => navigate('/student/dashboard', { replace: true }), 2000);
+        return;
+    }
+  }, [book, isLoggedIn, user, navigate]); // Added isLoggedIn and user to dependencies
 
-  if (!book) {
-    return null; // Or a loading spinner, while redirecting
+  // If initial checks fail, display message and prevent rendering the form
+  if (!book || !isLoggedIn || !user || user.role !== 'student') {
+    return (
+      <>
+        <Header />
+        <div className="borrow-request-page">
+          <div className="borrow-request-container">
+             <h2 className="borrow-request-title">Access Denied</h2>
+             <p className={`submission-message ${messageType}`}>{submissionMessage}</p>
+          </div>
+        </div>
+      </>
+    );
   }
 
   const handleSubmitRequest = async (e) => {
     e.preventDefault();
-    setSubmissionMessage(''); // Clear previous messages
+    setSubmissionMessage('');
+    setMessageType('');
 
     if (!pickupDate || !pickupTime) {
       setSubmissionMessage('Please select both a date and time.');
+      setMessageType('error');
       return;
     }
+    
+    if (!user.id) {
+        setSubmissionMessage('Your student ID is missing. Cannot submit request.');
+        setMessageType('error');
+        return;
+    }
 
-    // You would typically send this data to your backend
     try {
-      // *** IMPORTANT: You need to create a new API endpoint on your server
-      // (e.g., in server/routes/books.js or a new borrow.js)
-      // to handle this request and save it to your database.
-      // For now, this is a placeholder:
-      const response = await axios.post('http://localhost:5000/api/borrow/request', {
+      const response = await axios.post('/api/borrow/request', {
         bookId: book.id,
-        bookTitle: book.title, // Include more book info for clarity
-        studentId: 'CURRENT_STUDENT_ID', // You'll need to get the actual logged-in student ID
+        studentId: user.id,
         pickupDate,
         pickupTime,
       });
 
       if (response.data.success) {
-        setSubmissionMessage('Borrow request submitted successfully! You will receive a confirmation.');
-        // Optionally clear form or redirect after success
-        // setTimeout(() => navigate('/browsebooks'), 3000);
+        setSubmissionMessage('Borrow request submitted successfully! You will receive a confirmation shortly.');
+        setMessageType('success');
+        setPickupDate('');
+        setPickupTime('');
+        setTimeout(() => navigate('/student/dashboard', { replace: true }), 3000);
       } else {
         setSubmissionMessage(`Failed to submit request: ${response.data.message || 'Server error'}`);
+        setMessageType('error');
       }
 
     } catch (error) {
       console.error('Error submitting borrow request:', error);
-      setSubmissionMessage('An error occurred while submitting your request.');
+      setSubmissionMessage('An error occurred while submitting your request. Please try again.');
+      setMessageType('error');
     }
   };
 
@@ -70,7 +105,7 @@ function BorrowRequest() {
           <h2 className="borrow-request-title">Request to Borrow: {book.title}</h2>
           <p className="book-details">**Author:** {book.author}</p>
           <p className="book-details">**Category:** {book.category}</p>
-          {/* Add more book details if needed */}
+          <p className="book-details">**ISBN:** {book.isbn}</p>
 
           <form onSubmit={handleSubmitRequest} className="borrow-form">
             <label htmlFor="pickupDate">Preferred Pickup Date:</label>
@@ -94,7 +129,7 @@ function BorrowRequest() {
             <button type="submit" className="submit-borrow-btn">Submit Borrow Request</button>
           </form>
 
-          {submissionMessage && <p className="submission-message">{submissionMessage}</p>}
+          {submissionMessage && <p className={`submission-message ${messageType}`}>{submissionMessage}</p>}
         </div>
       </div>
     </div>

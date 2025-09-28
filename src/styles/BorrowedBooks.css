@@ -1,0 +1,175 @@
+/* Color variables from your theme */
+:root {
+  --primary-blue: #0f2e68;
+  --accent-yellow: #f5c542;
+  --light-text: #ffffff;
+  --dark-text: #333;
+  --background-gray: #f4f7fa;
+  --border-color: #e1e5e8;
+  --red-overdue: #dc3545;
+  --green-success: #28a745;
+  --blue-info: #007bff;
+}
+
+.borrowed-books-page {
+  display: flex;
+  justify-content: center;
+  background-color: #a0b2d3;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.borrowed-books-container {
+  background-color: var(--light-text);
+  margin-block: 8em 2em;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+  width: 90%;
+  max-width: 1200px;
+}
+
+/* NEW: wrapper just for horizontal scrolling */
+.borrowed-books-table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  margin-top: 1rem;
+}
+
+/* --- Borrowed Books List Table-like Layout --- */
+.borrowed-books-list {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr;
+  min-width: 900px; /* keeps columns from collapsing */
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.borrowed-books-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: var(--primary-blue);
+  margin-bottom: 0.8rem;
+  text-align: center;
+}
+
+.borrowed-books-description,
+.no-borrowed-books {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.no-borrowed-books {
+  font-style: italic;
+  padding: 1.5rem;
+  background-color: var(--background-gray);
+  border-radius: 8px;
+}
+
+.borrowed-book-header {
+  display: contents;
+}
+
+.borrowed-book-header > div {
+  background-color: var(--background-gray);
+  color: var(--primary-blue);
+  font-weight: bold;
+  padding: 1rem 1.2rem;
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.borrowed-book-row {
+  display: contents;
+}
+
+.borrowed-book-row > div {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--dark-text);
+  font-size: 0.95rem;
+  overflow: visible;
+  text-overflow: unset;
+  white-space: normal; /* allow wrapping on small screens */
+  text-align: left;
+}
+
+.borrowed-book-row:last-of-type > div {
+  border-bottom: none;
+}
+
+.borrowed-book-row:hover > div {
+  background-color: #f0f4f8;
+}
+
+/* Specific Column Styling */
+.book-title,
+.book-author {
+  font-weight: 500;
+}
+
+.book-borrow-date,
+.book-due-date {
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* Status Styling */
+.book-status {
+  font-weight: bold;
+}
+.book-status.borrowed {
+  color: var(--primary-blue);
+}
+.book-status.returned {
+  color: var(--green-success);
+}
+.book-status.overdue {
+  color: var(--red-overdue);
+}
+
+.book-due-date.overdue-date {
+  color: var(--red-overdue);
+  font-weight: bold;
+}
+
+/* Actions Styling */
+.book-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-action.renew-btn {
+  background-color: var(--accent-yellow);
+  color: var(--primary-blue);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.btn-action.renew-btn:hover {
+  background-color: #e4b43a;
+}
+
+/* ✅ Remove column hiding: keep all columns visible */
+@media (max-width: 992px),
+(max-width: 768px),
+(max-width: 576px) {
+  .borrowed-books-list {
+    grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr;
+  }
+
+  .borrowed-book-header > div,
+  .borrowed-book-row > div {
+    display: block;
+  }
+}

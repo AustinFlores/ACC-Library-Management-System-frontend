@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Header from "./Header";
 import "../styles/VisitLibrary.css";
+import { useAuth } from "../context/AuthContext";
 
 function VisitLibrary() {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
+    name: user.name,
+    email: user.email,
     date: "",
     timeSlot: "",
     purpose: "",
@@ -28,7 +30,7 @@ function VisitLibrary() {
     if (!res.ok) throw new Error(await res.text());
     const data = await res.json();
     alert(`Booking submitted! Reference: ${data.id || "pending"}`);
-    setFormData({ name:"", email:"", date:"", timeSlot:"", purpose:"", notes:"" });
+    setFormData({ name: user.name, email: user.email, date:"", timeSlot:"", purpose:"", notes:"" });
   } catch (e) {
     alert(`Submission failed: ${e.message}`);
   }
@@ -57,27 +59,6 @@ function VisitLibrary() {
       </div>
 
       <form className="booking-form" onSubmit={handleSubmit}>
-        <label>
-          Name
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </label>
-
-        <label>
-          Email
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
 
         <label>
           Date of Visit
@@ -116,7 +97,6 @@ function VisitLibrary() {
           >
             <option value="">Select purpose</option>
             <option value="Reading/Studying">Reading / Studying</option>
-            <option value="Book Pickup">Book Pickup</option>
             <option value="Research">Research</option>
             <option value="Other">Other</option>
           </select>

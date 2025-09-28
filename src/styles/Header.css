@@ -106,6 +106,7 @@
   border-radius: 4px;
   width: 15em;
   z-index: 100;
+  padding-left: 0;
 }
 
 .dropdown-menu li {
@@ -113,7 +114,7 @@
   transition: background 0.1s;
 }
 
-.dropdown-menu li:nth-child(1) {
+.dropdown-menu li {
   text-align: center;
 }
 
@@ -123,4 +124,66 @@
 
 .dropdown-menu li:not(:first-child):hover {
   background: #2d7eff;
+}
+
+.hamburger {
+  display: none;
+  font-size: 1.6rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+@media (max-width: 576px) {
+  .header {
+    height: auto;
+    padding-block: 1em;
+    position: fixed;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .nav-items, .profile-container {
+    display: none; /* Hide menu by default */
+  }
+
+  .nav-items.show {
+    display: flex;
+  }
+
+  .nav-item {
+    padding: 0.8em 0;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .nav-item:last-child {
+    border-bottom: none;
+  }
+
+  .header-content {
+    width: 85%;
+  }
+
+  .school-name {
+    font-size: 0.8rem;
+    margin-left: 0.5em;
+  }
+
+  .logo {
+    width: 2.5em;
+  }
+
+  #visit-library-btn {
+    font-size: 1rem;
+    padding-inline: 0.8em;
+  }
+
+  .profile-icon {
+    width: 2.5em;
+    height: 2.5em;
+  }
 }

@@ -56,18 +56,18 @@ function Contact() {
             </p>
             <ul>
               <li>
-                <strong>Address:</strong> 123 Main Street, Calamba, Laguna
+                <strong>Address:</strong> Mayapa, Calamba, Laguna
               </li>
               <li>
-                <strong>Phone:</strong> (049) 545-1234
+                <strong>Phone:</strong> (049) 545-1256
               </li>
               <li>
-                <strong>Email:</strong> library@acc.edu.ph
+                <strong>Email:</strong> administrator@asianos.edu.ph
               </li>
             </ul>
             <h3>Operating Hours</h3>
             <ul>
-                <li><strong>Monday–Friday:</strong> 9:00 AM – 6:00 PM</li>
+                <li><strong>Monday–Friday:</strong> 9:00 AM – 5:00 PM</li>
                 <li><strong>Saturday:</strong> 10:00 AM – 4:00 PM</li>
                 <li><strong>Sunday:</strong> Closed</li>
             </ul>

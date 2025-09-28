@@ -8,31 +8,57 @@ import { useNavigate } from 'react-router-dom';
 function Signin() {
   const [isVerifying, setIsVerifying] = useState(false);
   const [error, setError] = useState(null);
+  const [showLibrarianLogin, setShowLibrarianLogin] = useState(false);
+  const [formData, setFormData] = useState({ email: '', password: '' });
+
   const { login } = useAuth();
   const navigate = useNavigate();
-
-  // Use a ref to hold a persistent reference to the scanner instance.
   const scannerRef = useRef(null);
 
-  // This useEffect will run ONLY ONCE when the component mounts.
+  // This function handles the logic after successful authentication from ANY method
+  const handleLoginSuccess = async (userData) => {
+    await stopScanner();
+    login(userData);
+    // CRITICAL: Check the role and navigate accordingly
+    if (userData.role === 'librarian') {
+      navigate('/librarian/dashboard');
+    } else {
+      navigate('/student/dashboard');
+    }
+  };
+
+  let activeStream = null;
+  const stopScanner = async () => {
+  try {
+    if (scannerRef.current && scannerRef.current.isScanning) {
+      await scannerRef.current.stop();
+    }
+  } catch (err) {
+    console.warn("Scanner stop failed:", err);
+  }
+
+  // Force stop stream tracks if still alive
+  if (activeStream) {
+    activeStream.getTracks().forEach(track => track.stop());
+    activeStream = null;
+  }
+};
+
+  // --- QR SCANNER LOGIC ---
   useEffect(() => {
-    // Instantiate the scanner and store it in the ref
-    scannerRef.current = new Html5Qrcode("reader");
-    const scanner = scannerRef.current;
+  let scanner;
+
+  if (!showLibrarianLogin) {
+    scanner = new Html5Qrcode("reader");
+    scannerRef.current = scanner;
 
     const qrCodeSuccessCallback = async (decodedText) => {
-      // Prevent multiple scans while one is being processed
       if (isVerifying) return;
-
       setIsVerifying(true);
       setError(null);
 
       try {
-        // Stop the scanner immediately upon successful scan
-        if (scanner && scanner.isScanning) {
-          await scanner.stop();
-        }
-
+        if (scanner && scanner.isScanning) await scanner.stop();
         const url = new URL(decodedText);
         const studentId = url.searchParams.get("id");
         if (!studentId) throw new Error("Invalid QR code: Missing student ID.");
@@ -41,50 +67,72 @@ function Signin() {
         const data = await response.json();
 
         if (data.success) {
-          // A tiny delay allows the camera to fully release before navigation
-          setTimeout(() => {
-            login(data.user);
-            navigate('/');
-          }, 100);
+          setTimeout(() => handleLoginSuccess(data.user), 100);
         } else {
           throw new Error(data.message || "Verification failed.");
         }
       } catch (err) {
         setError(err.message);
         setIsVerifying(false);
-        // Important: We do not restart the scanner automatically.
-        // Let the user decide to refresh or navigate away.
       }
-    };
-
-    const qrCodeErrorCallback = (errorMessage) => {
-      // Can be ignored for cleaner UI
     };
 
     const config = { fps: 10, qrbox: { width: 250, height: 250 } };
-    
-    // Start the scanner
-    scanner.start({ facingMode: "environment" }, config, qrCodeSuccessCallback, qrCodeErrorCallback)
-      .catch(err => {
-        setError("Could not start camera. Please grant permissions.");
+    scanner.start({ facingMode: "environment" }, config, qrCodeSuccessCallback).then(() => {
+    // Grab the video element created by html5-qrcode
+    const videoElem = document.querySelector("#reader video");
+
+    if (videoElem && videoElem.srcObject) {
+      activeStream = videoElem.srcObject;
+    }
+  })
+      .catch(err => setError("Could not start camera. Please grant permissions."));
+  }
+
+  return () => {
+    if (scannerRef.current && scannerRef.current.isScanning) {
+      scannerRef.current.stop()
+        .catch(err => console.warn("Scanner stop failed:", err));
+    }
+  };
+}, [showLibrarianLogin]);
+
+
+  // --- LIBRARIAN FORM LOGIC ---
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleLibrarianSubmit = async (e) => {
+    e.preventDefault();
+    setIsVerifying(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/signin', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
+      const data = await response.json();
 
-    // ** THE CRITICAL CLEANUP FUNCTION **
-    // This function is guaranteed to run when the component unmounts.
-    return () => {
-      // Check if the ref has a scanner instance and if it's still scanning.
-      if (scannerRef.current && scannerRef.current.isScanning) {
-        scannerRef.current.stop().catch(err => {
-          // This error can be safely ignored, as we are leaving the page.
-          console.warn("Error stopping scanner during cleanup:", err);
-        });
+      if (data.success) {
+        handleLoginSuccess(data);
+      } else {
+        throw new Error(data.message || "Login failed.");
       }
-    };
-  }, []); // The empty dependency array [] ensures this effect runs ONLY ONCE.
+    } catch (err) {
+      setError(err.message);
+      setIsVerifying(false);
+    }
+  };
 
+  // --- RENDER LOGIC ---
   const getStatusMessage = () => {
     if (error) return <label className="scan-result error">{error}</label>;
-    if (isVerifying) return <label className="scan-result info">Verifying QR code...</label>;
+    if (isVerifying) return <label className="scan-result info">Authenticating...</label>;
+    if (showLibrarianLogin) return <label>Librarian Login</label>;
     return <label>Scan your QR code to Sign in</label>;
   };
 
@@ -94,10 +142,55 @@ function Signin() {
       <div className="signin-container">
         <div className="signin-content">
           <div className="status-message">{getStatusMessage()}</div>
-          <div id="reader" style={{ display: isVerifying ? 'none' : 'block' }}></div>
+
+          {showLibrarianLogin ? (
+            <form className="librarian-form" onSubmit={handleLibrarianSubmit}>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
+              <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+              />
+              <button type="submit" className="btn-primary" disabled={isVerifying}>
+                {isVerifying ? 'Signing in...' : 'Sign In'}
+              </button>
+            </form>
+          ) : (
+            <div id="reader" style={{ display: isVerifying ? 'none' : 'block' }}></div>
+          )}
         </div>
+
         <div className="signin-text-container">
-          <p>Lost access to your QR code? <a href="/requestqr" className='requestQR link'>Request your QR code</a></p>
+          {showLibrarianLogin ? (
+            <p>
+              Are you a student?{' '}
+              <span className="link" onClick={() => { setShowLibrarianLogin(false); setError(null); }}>
+                Scan QR Code
+              </span>
+            </p>
+          ) : (
+            <>
+              <p>
+                Are you a librarian?{' '}
+                <span className="link" onClick={() => { 
+                  stopScanner();
+                  setShowLibrarianLogin(true); setError(null); }}>
+                  Login with password
+                </span>
+              </p>
+              <p>Lost access to your QR code? <a href="/requestqr" className='requestQR link'>Request your QR code</a></p>
+            </>
+          )}
           <p className='signup-text'>No account yet? <a href="/signup" className='signup-link link'>Signup now</a></p>
         </div>
       </div>

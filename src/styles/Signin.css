@@ -1,35 +1,39 @@
 .signin-container {
   height: 100vh;
+  max-width: 100%;
   background-color: #174996;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-bottom: 4em;
+  
 }
 
-/* Signin content container */
 .signin-content {
   display: flex;
   flex-direction: column;
   justify-content: center; /* Center vertically */
   align-items: center;     /* Center horizontally */
-  width: 80%;
-  max-width: 30em; /* Limit width for smaller layout */
-  height: 30em;
+  width: 40%;
   margin-inline: auto;
-  margin-top: 4em;
-  padding: 20px;
-  background-color: #f4c43c; 
-  border-radius: 10px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  margin-top: 7em;
+  gap: 1.4em;
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 2em 4em;
+  border-radius: 15px;
+}
+
+
+.librarian-form .btn-primary {
+  font-size: 1em;
+  margin: 0 auto;
 }
 
 /* Reader styling */
 #reader {
   width: 25rem;
   height: 25rem;
-  margin-top: 2em;
-  background-color: #f4c43c;
   border: 1px solid #f4c43c;
   border-radius: 8px;
   overflow: hidden;
@@ -46,25 +50,20 @@
   transform: scaleX(-1);
 }
 
-/* Form styling */
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-form label {
+
+.signin-content .status-message label {
   font-size: 1.3em;
   font-weight: bold;
   margin-top: 1em;
+  width: 100% !important;
 }
 
 .signin-text-container {
   text-align:center;
   margin-top: .9em;
-}
-
-.signin-text-container p {
-  margin-top: .5em;
-  letter-spacing: 0.1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
 }

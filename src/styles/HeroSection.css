@@ -13,6 +13,7 @@
   margin-left: 3.5em;
   font-size: 1.5rem;
   color: white;
+  z-index: 3;
 }
 
 .hero-image {
@@ -28,7 +29,7 @@
 
 .title-1 {
   font-size: 5rem;
-  line-height: .6em;
+  line-height: .5em;
 }
 
 .title-2 {
@@ -42,7 +43,7 @@
 
 .btn-primary {
   font-size: 1.5rem;
-  letter-spacing: .08em;
+  letter-spacing: .03em;
   font-weight: 600;
   padding: .5em 1.5em;
   margin-bottom: .6em;
@@ -50,7 +51,7 @@
   border-radius: 0.25em;
   border: .13em solid #f4c43c;
   background-color: #f4c43c;
-  color: #174996;
+  color: rgb(58, 58, 58);
 }
 
 .btn-primary:hover {
@@ -61,7 +62,6 @@
 
 .signup-text {
   font-size: 1rem;
-  letter-spacing: 0.1em;
 }
 
 .link {
@@ -71,4 +71,47 @@
 
 .link:hover {
   color: #2d7eff;
+}
+
+@media (max-width: 576px) {
+  .hero-container {
+    display:flex;
+    height: auto;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    padding-inline: 1.5em;
+  }
+
+  .hero-image {
+    display: none;
+  }
+
+  .hero-content {
+    position: static;
+    transform: none;
+    text-align: center;
+    margin: 0;
+    font-size: 1.2rem;
+  }
+
+  .title-1 {
+    font-size: 3rem;
+    line-height: .8em;
+  }
+
+  .title-2 {
+    font-size: 2rem;
+    line-height: 0.8em;
+    margin-block: 0.3em;
+  }
+
+  .btn-primary {
+    font-size: 1.2rem;
+    padding: .4em 1.2em;
+  }
+
+  .signup-text {
+    font-size: 0.9rem;
+  }
 }

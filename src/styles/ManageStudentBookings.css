@@ -1,0 +1,276 @@
+/* Color variables from your theme */
+:root {
+  --primary-blue: #0f2e68;
+  --accent-yellow: #f5c542;
+  --light-text: #ffffff;
+  --dark-text: #333;
+  --background-gray: #f4f7fa;
+  --border-color: #e1e5e8;
+  --red-cancel: #dc3545;
+  --green-confirm: #28a745;
+  --blue-info: #007bff;
+  --yellow-pending: #ffc107;
+}
+
+.manage-student-bookings-page {
+  display: flex;
+
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #a0b2d3;
+}
+
+.manage-student-bookings-container {
+  margin: auto;
+  background-color: rgba(23, 73, 150, 0.65);
+  padding: 3rem 2.5em;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color);
+  max-width: 80%;
+  min-width: 70%;
+  width: 70%;
+  overflow-x: hidden;
+}
+
+.manage-student-bookings-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: var(--primary-blue);
+  margin: 0;
+  text-align: center;
+  line-height: 0.8;
+  margin-bottom: 0.4em;
+}
+
+.manage-student-bookings-description,
+.no-bookings {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 2rem;
+  margin-top: 0;
+  text-align: center;
+  line-height: 1.1;
+}
+
+.no-bookings {
+  font-style: italic;
+  padding: 1.5rem;
+  background-color: var(--background-gray);
+  border-radius: 8px;
+}
+
+/* --- Bookings List Table-like Layout --- */
+.student-bookings-list {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 2fr 1fr 1.5fr; /* Desktop layout */
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden; /* For rounded corners */
+}
+
+.student-booking-header {
+  display: contents;
+}
+
+.student-booking-header > div {
+  background-color: var(--background-gray);
+  color: var(--primary-blue);
+  font-weight: bold;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.student-booking-row {
+  display: contents;
+}
+
+.student-booking-row > div {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--border-color);
+  color: var(--dark-text);
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+}
+
+.student-booking-row:last-of-type > div {
+  border-bottom: none; /* No border for the last row */
+}
+
+.student-booking-row:hover > div {
+  background-color: #f0f4f8; /* Light hover effect */
+}
+
+/* Status Styling */
+.booking-status.pending {
+  background-color: #fff3cd; /* Light yellow */
+  color: var(--yellow-pending);
+ 
+  border-radius: 0;
+  font-weight: bold;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+.booking-status.confirmed {
+  background-color: #d4edda; /* Light green */
+  color: var(--green-confirm);
+  padding: 0.3em 0.6em;
+  font-weight: bold;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+.booking-status.cancelled {
+  background-color: #f8d7da; /* Light red */
+  color: var(--red-cancel);
+  padding: 0.3em 0.6em;
+  font-weight: bold;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+/* Actions Styling */
+.booking-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn-action.cancel-booking-btn {
+  background-color: var(--red-cancel);
+  color: var(--light-text);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+.btn-action.cancel-booking-btn:hover {
+  background-color: #c82333;
+}
+
+.btn-action.view-details-btn {
+  background-color: var(--blue-info); /* Blue for view details */
+  color: var(--light-text);
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+.btn-action.view-details-btn:hover {
+  background-color: #0069d9;
+}
+
+/* --- Responsive Fixes --- */
+@media (max-width: 992px) {
+  .student-bookings-list {
+    grid-template-columns: 1.2fr 1fr 1.5fr 1fr 1.5fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .manage-student-bookings-container {
+    width:70%;
+    padding: 1.5rem;
+  }
+
+  .manage-student-bookings-title {
+    font-size: 1.8rem;
+  }
+
+  .student-bookings-list {
+    grid-template-columns: 1.2fr 1fr 1fr 1fr 1fr; /* Keep all columns */
+  }
+
+  .booking-actions {
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .btn-action.cancel-booking-btn,
+  .btn-action.view-details-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .student-bookings-list {
+    display: block; /* Switch to card layout */
+  }
+
+  .student-booking-header {
+    display: none; /* Hide header row */
+  }
+
+  .student-booking-row {
+    display: block;
+    background: #fff;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+  }
+
+  .student-booking-row > div {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    white-space: normal;
+    text-align: left;
+  }
+
+  .student-booking-row > div:last-child {
+    border-bottom: none;
+  }
+
+  /* Add labels before values for ALL columns */
+  .booking-date::before {
+    content: "Date: ";
+    font-weight: bold;
+    color: var(--primary-blue);
+  }
+  .booking-time::before {
+    content: "Time: ";
+    font-weight: bold;
+    color: var(--primary-blue);
+  }
+  .booking-purpose::before {
+    content: "Purpose: ";
+    font-weight: bold;
+    color: var(--primary-blue);
+  }
+  .booking-status::before {
+    content: "Status: ";
+    font-weight: bold;
+    color: var(--primary-blue);
+  }
+  .booking-actions::before {
+    content: "Actions: ";
+    font-weight: bold;
+    color: var(--primary-blue);
+    margin-right: 0.5rem;
+  }
+
+  .booking-actions {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  .btn-action.cancel-booking-btn,
+  .btn-action.view-details-btn {
+    flex: 0;
+  }
+}

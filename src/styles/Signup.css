@@ -1,23 +1,23 @@
-
 /* Overall Signup Page */
 .signup-page {
   background-color: #174996;
-  height: 100vh;
+  /* Allow the page to grow and scroll instead of forcing fixed viewport height */
+  min-height: 100vh;
+  max-height: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
 /* Main Container */
 .signup-container {
-  max-width: 450px;
-  width: 100%;
-  padding: 30px;
-  margin-top: 5em;
-  background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 60%;
+  margin-top: 4em;
+  padding: 2em 3em;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4em;
 }
 
 /* Title & Description */
@@ -42,7 +42,7 @@
 }
 
 .signup-message.success {
-  color: green;
+  color: var(--accent-yellow);
 }
 
 .signup-message.error {
@@ -51,6 +51,10 @@
 
 /* Form */
 .signup-form {
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 2em 4em;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   gap: 1em;
@@ -70,7 +74,6 @@
 .form-row .form-group {
   flex: 1;
   min-width: 0;
-  
 }
 
 .form-label {
@@ -103,17 +106,46 @@
   margin-bottom: 20px;
 }
 
+.qr-section p {
+  font-size: 0.8rem;
+  color: white;
+}
+
 .qr-title {
-  margin-bottom: 10px;
-  color: #444;
+  margin-bottom: 0.8em;
+  color: white
+
 }
 
 .qr-image {
   width: 200px;
+  max-width: 100%;
+  height: auto;
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 5px;
   background-color: #fff;
+}
+
+.qr-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Minimal secondary button style in case none exists globally */
+.btn-secondary {
+  background-color: #f4c43c;
+  color: rgb(34, 33, 33);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  filter: brightness(0.95);
 }
 
 /* Sign-in Link */
@@ -130,4 +162,18 @@
 
 .signin-link:hover {
   color: #2d7eff;
+}
+
+@media (max-width: 576px){
+
+  .signup-container {
+    width: 90%;
+    flex-direction: column;
+    padding: 1.5em 1.5em;
+    gap: 2em;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
 }

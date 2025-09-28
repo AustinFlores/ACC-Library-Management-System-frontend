@@ -4,6 +4,7 @@
   font-family: Arial, sans-serif;
   color: white;
   background-color: #174996;
+  padding-top: 8em;
 }
 
 /* Titles & Intro */
@@ -15,7 +16,6 @@
 
 .visit-intro {
   margin-bottom: 30px;
-  color: #555;
 }
 
 .info-section {
@@ -24,10 +24,12 @@
   border-radius: 6px;
   margin-bottom: 30px;
   color: #174996;
+  line-height: 1.5em;
 }
 
 .info-section h3 {
   margin-top: 0;
+  margin-bottom: 0.8em;
 }
 
 .info-section ul {

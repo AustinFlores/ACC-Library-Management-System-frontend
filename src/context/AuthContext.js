@@ -4,39 +4,41 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Assuming you've added this for ProtectedRoute/HomeRedirector
 
-  // This effect runs when the app starts, checking for a saved user session
   useEffect(() => {
     const storedUser = sessionStorage.getItem('lms_user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser); 
+      console.log('AuthContext: Loaded user from sessionStorage:', parsedUser);
     }
+    setLoading(false);
   }, []);
 
   const login = (userData) => {
-    // Save user data to both state and sessionStorage for persistence
+    console.log('AuthContext: User data passed to login:', userData);
     sessionStorage.setItem('lms_user', JSON.stringify(userData));
     setUser(userData);
   };
 
   const logout = () => {
-    // Clear user data from state and sessionStorage
+    console.log('AuthContext: User logged out');
     sessionStorage.removeItem('lms_user');
     setUser(null);
   };
 
-  // Provide the user data, login/logout functions, and a helpful boolean
   const value = {
-    user, // This object will contain the user's name
+    user,
     isLoggedIn: !!user,
     login,
     logout,
+    loading
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-// This is a custom hook that makes it easy to access the context
 export const useAuth = () => {
   return useContext(AuthContext);
 };

@@ -1,12 +1,26 @@
 /* client/src/styles/BrowseBooks.css */
 
+/* Color variables from your theme */
+:root {
+  --primary-blue: #0f2e68; /* A deep blue matching your screenshot */
+  --accent-yellow: #f5c542; /* A warm yellow for buttons */
+  --light-text: #ffffff;
+  --dark-text: #333; /* Dark text for general content */
+  --background-gray: #f4f7fa; /* Light background for dashboard */
+  --border-color: #e1e5e8; /* Light border color */
+  --red-delete: #dc3545; /* Red for delete/missing actions */
+  --green-confirm: #28a745; /* Green for available/confirm */
+}
+
+
 /* --- General Category Page Layout --- */
 .category-page {
-  /* ... (existing styles) ... */
   position: relative;
-  min-height: calc(100vh - 60px); /* Adjust based on your header height */
+  min-height: calc(100vh - 6em); /* Adjust based on your header height */
   overflow: hidden; /* Ensures image doesn't overflow */
-  padding: 20px 0; /* Add some vertical padding */
+  padding-inline: 6em;
+  padding-top: 6em;
+  background-color: var(--primary-blue)
 }
 
 .category-bg-image {
@@ -16,28 +30,26 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -1;
+  z-index: -1; /* Puts image behind content */
   filter: brightness(0.6); /* Make text more readable */
 }
 
 .category-page-container {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 2em auto;
 }
 
 .category-header {
   text-align: center;
   margin-bottom: 30px;
-  color: #333;
+  color: var(--light-text); /* Changed to light text for contrast against dark image */
 }
 
 .category-title {
   font-size: 2.5em;
-  margin-bottom: 15px;
-  color: #0056b3; /* A nice blue */
+  margin-bottom: 1.4em;
+  color: var(--accent-yellow); /* Using accent color for title */
+  text-align: center;
 }
 
 .category-search {
@@ -46,11 +58,13 @@
   border-radius: 5px;
   margin-right: 10px;
   width: 250px; /* Adjust width as needed */
+  background-color: var(--light-text);
+  color: var(--dark-text);
 }
 
 .category-search-button {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--accent-yellow);
+  color: var(--primary-blue);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -60,22 +74,26 @@
 }
 
 .category-search-button:hover {
-  background-color: #0056b3;
+  background-color: #a78120;
 }
 
 .category-list-container {
-  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background for content */
+  background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent background for content */
   padding: 2em;
+  border-radius: 8px; /* Added border-radius */
 }
 
 .category-list {
   list-style: none;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid for categories */
+  gap: 1.5rem; /* Gap between category items */
 }
 
 .category-item {
-  background-color: #e9ecef; /* Light gray background */
-  color: #333;
+  background-color: rgba(255, 255, 255, 0.5); /* Light gray background */
+  color: var(--dark-text); /* Dark text */
   padding: 1em 1.4em;
   margin-bottom: 0.5em;
   border-radius: 8px;
@@ -84,6 +102,10 @@
   font-weight: bold;
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .category-item:hover {
@@ -93,86 +115,143 @@
 }
 
 /* --- Book List Specific Styles --- */
+.book-list-view {
+  padding-top: 8em; /* Consistent padding when showing book list */
+}
+
+.add-book-btn {
+  background-color: var(--accent-yellow);
+  color: var(--primary-blue);
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 0;
+  transition: background-color 0.2s ease;
+
+}
+.add-book-btn:hover {
+  background-color: #e4b43a;
+}
+
 .search-inputs-container {
   display: flex;
-  justify-content: center;
   gap: 15px;
   margin-bottom: 25px;
+  flex-wrap: wrap; /* Allows inputs to wrap on smaller screens */
+  justify-content: center; /* Center search inputs */
 }
 
 .search-input {
   padding: 10px 15px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   width: 200px;
+  flex-grow: 1; /* Allow inputs to grow if space available */
+  max-width: 250px; /* Limit max width */
   font-size: 1em;
+  color: var(--dark-text);
+  background-color: var(--light-text);
 }
+.search-input:focus {
+  outline: 2px solid var(--accent-yellow);
+  border-color: var(--primary-blue);
+  background-color: var(--light-text); /* White background on focus */
+}
+
+.back-to-categories {
+  background-color: #6c757d; /* Gray */
+  color: var(--light-text);
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+  white-space: nowrap; /* Prevent text wrapping inside button */
+}
+.back-to-categories:hover {
+  background-color: #5a6268;
+}
+
 
 .book-container {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* For rounded corners */
+  /* Define grid on the container and use the CSS variable */
+  display: grid;
+  grid-template-columns: var(--book-grid-columns, 2fr 1.5fr 1fr 1.5fr); /* Fallback to student view */
 }
 
+/* Make children of book-header and book-row participate directly in .book-container's grid */
 .book-header,
 .book-row {
-  display: grid;
-  /* Adjust grid-template-columns: Title (2 parts), Author (1.5 parts), Availability/Action (1 part) */
-  grid-template-columns: 2fr 1.5fr 1fr;
-  align-items: center;
-  gap: 10px; /* Space between columns */
-  padding: 12px 20px;
-  border-bottom: 1px solid #eee;
+  display: contents;
 }
 
-.book-header {
+
+/* Styling for individual cells within the grid */
+.book-header > div,
+.book-row > div {
+  padding: 1rem 1.5rem; /* Apply padding to individual cells */
+  border-bottom: 1px solid var(--border-color); /* Apply border to individual cells */
+  text-align: left; /* Default text alignment */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Remove bottom border from last cells of the last row */
+.book-row:last-of-type > div {
+  border-bottom: none;
+}
+
+/* Hover effect on entire row for consistency */
+.book-row:hover > div {
+  background-color: #f0f4f8; /* Light hover effect for cells */
+}
+
+
+.book-header > div {
   font-weight: bold;
-  background-color: #f8f9fa; /* Lighter background for header */
-  color: #343a40;
+  background-color: var(--background-gray); /* Lighter background for header */
+  color: var(--primary-blue);
+  text-transform: uppercase;
+  font-size: 0.9rem;
 }
 
-/* Specific column styling */
-.book-title {
-  text-align: left;
+.book-status { 
+  font-weight: 600;
+  text-align: center; /* Center status text */
+}
+.book-actions { 
+  display: flex;
+  /* Adjust layout to accommodate both toggle button and kebab menu */
+  gap: 0.5rem; /* Space between action elements */
+  flex-wrap: wrap; /* Allow wrapping */
+  justify-content: flex-end; /* Align action buttons to the right */
+  position: relative; /* Crucial for positioning the dropdown */
 }
 
-.book-author {
-  text-align: left;
-}
-
-/* Consolidated Availability / Action Cell */
-.book-availability-header { /* New header for the consolidated column */
-  text-align: center;
-  font-weight: bold;
-}
-
-.book-availability-cell { /* Changed from .book-availability */
-  display: flex; /* Use flexbox for vertical stacking */
-  flex-direction: column; /* Stack items vertically */
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center vertically */
-  gap: 5px; /* Space between status text and button */
-  padding: 5px; /* Add some padding around the content */
-  text-align: center; /* Default text alignment */
-}
-
-.book-status-text { /* New style for the status text */
-  font-weight: bold;
-  padding: 3px 0;
-}
 
 /* Status colors */
-.available .book-status-text {
-  color: #28a745; /* Green */
+.book-status.available { color: var(--green-confirm); }
+.book-status.borrowed { color: var(--primary-blue); } /* Changed from yellow to primary blue */
+.book-status.missing { color: var(--red-delete); }
+
+.librarian-form input{
+  padding: 0.8em 0.5em;
+  
 }
 
-.borrowed .book-status-text {
-  color: #ffc107; /* Yellow/Orange */
-}
-
-.missing .book-status-text {
-  color: #dc3545; /* Red */
+.librarian-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 100%;
 }
 
 /* General button styles */
@@ -183,46 +262,286 @@
   cursor: pointer;
   font-size: 0.9em;
   transition: background-color 0.2s ease;
-  min-width: 120px; /* Ensure buttons have a consistent width */
+  min-width: 100px; /* Ensure buttons have a consistent width */
   text-align: center;
+  white-space: nowrap; /* Prevent button text wrapping */
 }
 
-/* Toggle buttons for librarian */
-.mark-missing {
-  background-color: #dc3545; /* Red */
-  color: white;
+.btn-action:hover {
+  opacity: 0.9;
 }
 
-.mark-missing:hover {
-  background-color: #c82333;
+/* Toggle buttons for librarian (standalone) */
+.btn-action.toggle-btn.mark-borrowed { /* When status is available, button says 'Mark as Borrowed' */
+  background-color: #007bff; /* Blue */
+  color: var(--light-text);
 }
 
-.mark-available {
-  background-color: #28a745; /* Green */
-  color: white;
+.btn-action.toggle-btn.mark-borrowed:hover {
+  background-color: #0056b3;
 }
 
-.mark-available:hover {
+.btn-action.toggle-btn.mark-available { /* When status is borrowed/missing, button says 'Mark as Available' */
+  background-color: var(--green-confirm); /* Green */
+  color: var(--light-text);
+}
+
+.btn-action.toggle-btn.mark-available:hover {
   background-color: #218838;
 }
 
 /* Borrow button for students */
-.borrow-btn {
-  background-color: #007bff; /* Blue for borrow */
-  color: white;
+.btn-action.borrow-btn {
+  background-color: var(--primary-blue); /* Blue for borrow */
+  color: var(--light-text);
 }
 
-.borrow-btn:hover:not(:disabled) {
-  background-color: #0056b3;
+.btn-action.borrow-btn:hover:not(:disabled) {
+  background-color: #0f2e68c0;
 }
 
-.borrow-btn:disabled {
+.btn-action.borrow-btn:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
   color: #666666;
 }
 
-/* Last row has no bottom border */
-.book-container .book-row:last-child {
-  border-bottom: none;
+
+
+
+/* Kebab Menu specific styles */
+.kebab-menu-container {
+  position: relative;
+  /* display: inline-block; or display: flex; align-items: center; */
+  /* For placement next to a button, 'flex' can work well within book-actions flex container */
+  display: flex; /* Treat as a flex item */
+  align-items: center; /* Vertically align with the button */
+}
+
+.kebab-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem; /* Make the dots visible */
+  font-weight: bold;
+  color: var(--primary-blue);
+  cursor: pointer;
+  padding: 0 0.5rem;
+  line-height: 1; /* Adjust vertical alignment */
+  transition: color 0.2s ease;
+}
+
+.kebab-button:hover {
+  color: var(--accent-yellow);
+}
+
+.kebab-dropdown-menu {
+  position: absolute;
+  top: 100%; /* Position below the button */
+  right: 0; /* Align to the right of the button */
+  background-color: var(--light-text);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0.5rem 0 0 0; /* Space below button */
+  min-width: 180px;
+  z-index: 10; /* Ensure dropdown appears above other content */
+}
+
+.kebab-dropdown-menu li {
+  padding: 0.8rem 1.2rem;
+  cursor: pointer;
+  color: var(--dark-text);
+  font-size: 0.95rem;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.kebab-dropdown-menu li:hover {
+  background-color: var(--background-gray);
+  color: var(--primary-blue);
+}
+
+/* No books message */
+.no-books-found {
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+  font-style: italic;
+  grid-column: 1 / -1; /* Make it span all columns */
+}
+
+/* --- Modal for Add/Edit Book Form --- */
+.add-edit-form-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.add-edit-form-modal-content {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); /* Stronger shadow for modal */
+  width: 90%;
+  max-width: 500px;
+  animation: fadeIn 0.3s ease-out; /* Simple fade-in animation */
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.add-edit-form-modal-content h3 {
+  color: var(--primary-blue);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.add-edit-book-form {
+  width: 100%;
+}
+
+.add-edit-book-form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  font-weight: 500;
+  color: var(--dark-text);
+}
+
+.add-edit-book-form input,
+.add-edit-book-form select {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.3rem;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  background-color: var(--background-gray);
+  color: var(--dark-text);
+}
+
+.add-edit-book-form input:focus,
+.add-edit-book-form select:focus {
+  outline: 2px solid var(--accent-yellow);
+  border-color: var(--primary-blue);
+  background-color: var(--light-text);
+}
+
+.add-edit-book-form .form-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.add-edit-book-form .btn-primary {
+  background-color: var(--primary-blue);
+  color: var(--light-text);
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  border: none;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+.add-edit-book-form .btn-primary:hover {
+  background-color: #1a3b7a;
+}
+
+.add-edit-book-form .btn-secondary {
+  background-color: #ccc;
+  color: var(--dark-text);
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.add-edit-book-form .btn-secondary:hover {
+  background-color: #b0b0b0;
+}
+
+/* Fade-in animation for modal */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Media Queries for responsiveness --- */
+@media (max-width: 992px) { /* Adjust breakpoint if needed */
+  /* Default student view: Title, Author, Status, Actions */
+  .book-container {
+    grid-template-columns: var(--book-grid-columns, 2fr 1.5fr 1fr 1.5fr);
+  }
+
+  /* Librarian view: Title, Author, ISBN, Status, Actions */
+  .book-container[style*="--book-grid-columns"]:has(.book-isbn) {
+    /* Adjusted to account for the separate toggle button */
+    grid-template-columns: var(--book-grid-columns, 2fr 1.2fr 0.8fr 1fr 2fr); 
+  }
+
+  .book-actions {
+    flex-direction: column; /* Stack actions vertically */
+    align-items: flex-end; /* Align stacked buttons to the right */
+    gap: 0.5rem; /* Space between kebab menu and borrow button if it existed */
+  }
+  .kebab-dropdown-menu {
+    left: auto; /* Reset left */
+    right: 0; /* Keep aligned to the right */
+  }
+}
+
+@media (max-width: 768px) {
+  .search-inputs-container {
+    flex-direction: column;
+    align-items: stretch; /* Stretch items to full width */
+  }
+  .search-input, .back-to-categories {
+    max-width: none; /* Allow inputs to take full width */
+  }
+
+  .book-container {
+    grid-template-columns: var(--book-grid-columns, 1.5fr 1fr 1.5fr); /* Default: Title, Status, Actions */
+  }
+  .book-container[style*="--book-grid-columns"]:has(.book-isbn) { /* Librarian without author */
+    /* Adjusted */
+    grid-template-columns: var(--book-grid-columns, 1.5fr 0.8fr 1fr 2fr);
+  }
+
+  /* Hide specific columns on smaller screens */
+  .book-header .book-author,
+  .book-row .book-author {
+    display: none; 
+  }
+
+  .book-actions .btn-action {
+    min-width: unset; /* Remove min-width to allow shrinking */
+    width: 100%; /* Make action buttons fill available space */
+  }
+}
+
+@media (max-width: 576px) {
+  .book-container {
+    grid-template-columns: var(--book-grid-columns, 1fr 1.2fr); /* Default: Title, Actions */
+  }
+  .book-container[style*="--book-grid-columns"]:has(.book-isbn) { /* Librarian without ISBN */
+    /* Adjusted */
+    grid-template-columns: var(--book-grid-columns, 1fr 1.5fr);
+  }
+
+  .book-header .book-status,
+  .book-row .book-status,
+  .book-header .book-isbn,
+  .book-row .book-isbn {
+    display: none;
+  }
 }

@@ -128,8 +128,9 @@ function BrowseBooks() {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get(`${BACKEND_URL}/api/books/categories`);
       console.log(`${BACKEND_URL}`);
+      const res = await axios.get(`${BACKEND_URL}/api/books/categories`);
+      
       console.log('Categories response:', res.data); 
       const categoriesArray = Array.isArray(res.data) ? res.data : [];
     setCategories(categoriesArray);

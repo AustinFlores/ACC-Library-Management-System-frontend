@@ -101,6 +101,7 @@ function BrowseBooks() {
 
   const navigate = useNavigate();
   const dropdownRefs = useRef({});
+  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -127,7 +128,7 @@ function BrowseBooks() {
 
   const fetchCategories = async () => {
     try {
-      const res = await axios.get('/api/books/categories');
+      const res = await axios.get(`${BACKEND_URL}/api/books/categories`);
       setCategories(res.data);
       setFilteredCategories(res.data); // seed filtered list
     } catch (err) {
@@ -158,7 +159,7 @@ function BrowseBooks() {
         categories.filter((cat) => String(cat).toLowerCase().includes(q))
       );
     }
-  }, []);
+  }, [categories]);
 
   // --- Fetch Books based on category and searches ---
   // Uses Axios params object, and also applies client-side fallback filtering

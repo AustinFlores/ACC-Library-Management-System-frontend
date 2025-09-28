@@ -62,7 +62,7 @@ function Signin() {
         if (scanner && scanner.isScanning) await scanner.stop();
         const studentId = decodedText;
         if (!studentId) throw new Error("Invalid QR code: Missing student ID.");
-
+        const URL = "https://acc-library-management-system-backend-1.onrender.com";
         const response = await fetch(`${URL}/verify?id=${studentId}`);
         const data = await response.json();
 

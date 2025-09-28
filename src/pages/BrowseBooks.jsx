@@ -129,7 +129,9 @@ function BrowseBooks() {
   const fetchCategories = async () => {
     try {
       const res = await axios.get(`${BACKEND_URL}/api/books/categories`);
-      setCategories(res.data);
+      console.log('Categories response:', res.data); 
+      const categoriesArray = Array.isArray(res.data) ? res.data : [];
+    setCategories(categoriesArray);
       setFilteredCategories(res.data); // seed filtered list
     } catch (err) {
       console.error('Error fetching categories:', err);

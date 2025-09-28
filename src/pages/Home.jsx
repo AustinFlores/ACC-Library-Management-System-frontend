@@ -1,7 +1,5 @@
-import React, {useState} from 'react'
 import Header from './Header'
 import HeroSection from './HeroSection'
-import About from './About'
 
 function Home() {
 

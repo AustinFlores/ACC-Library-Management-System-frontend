@@ -96,12 +96,11 @@ function BrowseBooks() {
   const [bookToEdit, setBookToEdit] = useState(null);
   const [openDropdownId, setOpenDropdownId] = useState(null); // State for open kebab menu
 
-  const { user, isLoggedIn } = useAuth();
+  const { user } = useAuth();
   const userRole = user?.role;
 
   const navigate = useNavigate();
   const dropdownRefs = useRef({});
-  
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -159,7 +158,7 @@ function BrowseBooks() {
         categories.filter((cat) => String(cat).toLowerCase().includes(q))
       );
     }
-  }, [categories]);
+  }, []);
 
   // --- Fetch Books based on category and searches ---
   // Uses Axios params object, and also applies client-side fallback filtering

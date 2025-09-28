@@ -6,7 +6,6 @@ import "../styles/CreateAnnouncement.css";
 
 function CreateAnnouncement() {
   const { user } = useAuth();
-  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState(null);

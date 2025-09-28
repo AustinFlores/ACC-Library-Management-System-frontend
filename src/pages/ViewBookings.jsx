@@ -14,7 +14,7 @@ function ViewBookings() {
 
   // --- Authorization Check ---
   useEffect(() => {
-    if (!user || user.role !== 'librarian' && user.role !== 'admin') {
+    if (!user || (user.role !== 'librarian' && user.role !== 'admin')) {
       setError('You are not authorized to access this page.');
       setTimeout(() => navigate('/librarian/dashboard', { replace: true }), 3000); // Redirect unauthorized
     }
@@ -47,29 +47,29 @@ function ViewBookings() {
   }, [user]); // Refetch if user changes
 
   // --- Booking Actions ---
-  const handleUpdateBookingStatus = async (bookingId, newStatus) => {
-    if (!window.confirm(`Are you sure you want to mark booking ${bookingId} as ${newStatus}?`)) return;
-    try {
-      // Assume API endpoint POST /api/bookings/update-status
-      const response = await axios.post('/api/bookings/update-status', {
-        bookingId,
-        newStatus,
-      });
-      if (response.data.success) {
-        setBookings(prevBookings =>
-          prevBookings.map(booking =>
-            booking.id === bookingId ? { ...booking, request_status: newStatus } : booking
-          )
-        );
-        alert(`Booking ${bookingId} status updated to ${newStatus}.`);
-      } else {
-        throw new Error(response.data.message || 'Failed to update booking status.');
-      }
-    } catch (err) {
-      console.error('Error updating booking status:', err);
-      alert('Error updating booking status: ' + (err.response?.data?.error || err.message));
-    }
-  };
+  // const handleUpdateBookingStatus = async (bookingId, newStatus) => {
+  //   if (!window.confirm(`Are you sure you want to mark booking ${bookingId} as ${newStatus}?`)) return;
+  //   try {
+  //     // Assume API endpoint POST /api/bookings/update-status
+  //     const response = await axios.post('/api/bookings/update-status', {
+  //       bookingId,
+  //       newStatus,
+  //     });
+  //     if (response.data.success) {
+  //       setBookings(prevBookings =>
+  //         prevBookings.map(booking =>
+  //           booking.id === bookingId ? { ...booking, request_status: newStatus } : booking
+  //         )
+  //       );
+  //       alert(`Booking ${bookingId} status updated to ${newStatus}.`);
+  //     } else {
+  //       throw new Error(response.data.message || 'Failed to update booking status.');
+  //     }
+  //   } catch (err) {
+  //     console.error('Error updating booking status:', err);
+  //     alert('Error updating booking status: ' + (err.response?.data?.error || err.message));
+  //   }
+  // };
 
   if (loading) {
     return <div className="admin-page-content"><p className="loading-message">Loading bookings...</p></div>;

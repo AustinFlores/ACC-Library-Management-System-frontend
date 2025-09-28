@@ -35,6 +35,24 @@ function ScanReturnBook() {
     }
   }, [user, navigate]);
 
+  const stopScanner = React.useCallback(async () => {
+    // clear any scheduled restart to avoid concurrent starts
+    if (restartTimeoutRef.current) {
+      clearTimeout(restartTimeoutRef.current);
+      restartTimeoutRef.current = null;
+    }
+
+    if (html5QrCodeRef.current && isScanning) {
+      try {
+        await html5QrCodeRef.current.stop();
+        setIsScanning(false);
+        console.log("⏹️ Scanner stopped.");
+      } catch (err) {
+        console.warn("⚠️ Error stopping scanner:", err);
+      }
+    }
+  }, [isScanning]);
+
   // --- Init Scanner ---
   useEffect(() => {
     if (!html5QrCodeRef.current && document.getElementById(readerDivId)) {
@@ -59,25 +77,9 @@ function ScanReturnBook() {
       }
     };
     // empty deps -> run once
-  }, []);
+  }, [stopScanner]);
 
-  const stopScanner = async () => {
-    // clear any scheduled restart to avoid concurrent starts
-    if (restartTimeoutRef.current) {
-      clearTimeout(restartTimeoutRef.current);
-      restartTimeoutRef.current = null;
-    }
-
-    if (html5QrCodeRef.current && isScanning) {
-      try {
-        await html5QrCodeRef.current.stop();
-        setIsScanning(false);
-        console.log("⏹️ Scanner stopped.");
-      } catch (err) {
-        console.warn("⚠️ Error stopping scanner:", err);
-      }
-    }
-  };
+  
 
   const startScanner = async (callback) => {
     if (!html5QrCodeRef.current || isScanning || isProcessing) return;

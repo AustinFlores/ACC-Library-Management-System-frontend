@@ -27,7 +27,7 @@ function Signin() {
     }
   };
 
-  let activeStream = null;
+  const activeStreamRef = useRef(null);
   const stopScanner = async () => {
   try {
     if (scannerRef.current && scannerRef.current.isScanning) {
@@ -38,9 +38,9 @@ function Signin() {
   }
 
   // Force stop stream tracks if still alive
-  if (activeStream) {
-    activeStream.getTracks().forEach(track => track.stop());
-    activeStream = null;
+  if (activeStreamRef.current) {
+    activeStreamRef.current.getTracks().forEach(track => track.stop());
+    activeStreamRef.current = null;
   }
 };
 
@@ -83,7 +83,7 @@ function Signin() {
     const videoElem = document.querySelector("#reader video");
 
     if (videoElem && videoElem.srcObject) {
-      activeStream = videoElem.srcObject;
+      activeStreamRef.current = videoElem.srcObject;
     }
   })
       .catch(err => setError("Could not start camera. Please grant permissions."));

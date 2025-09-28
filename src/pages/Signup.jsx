@@ -25,7 +25,7 @@ function Signup() {
 
     try {
       const res = await axios.post(`${URL}
-acc-library-management-system.com/signup`, formData);
+https://acc-library-management-system-frontend.onrender.com/signup`, formData);
       console.log(res.data);
 
       if (res.data.success) {

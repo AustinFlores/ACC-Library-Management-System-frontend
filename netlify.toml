@@ -1,0 +1,6 @@
+# netlify.toml
+[[redirects]]
+  from = "/api/*"
+  to = "https://acc-library-management-system-backend-1.onrender.com"
+  status = 200 # Use 200 for proxying (rewrite), not a true redirect (301/302)
+  force = true # Forces the rewrite even if a file (e.g., /api/index.html) exists

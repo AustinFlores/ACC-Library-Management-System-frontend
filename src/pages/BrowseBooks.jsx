@@ -101,6 +101,7 @@ function BrowseBooks() {
 
   const navigate = useNavigate();
   const dropdownRefs = useRef({});
+  
 
   // Close dropdown when clicking outside
   useEffect(() => {

@@ -101,7 +101,7 @@ function BrowseBooks() {
 
   const navigate = useNavigate();
   const dropdownRefs = useRef({});
-  const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+  const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -128,12 +128,8 @@ function BrowseBooks() {
 
   const fetchCategories = async () => {
     try {
-      console.log(`${BACKEND_URL}`);
-      const res = await axios.get(`${BACKEND_URL}/api/books/categories`);
-      
-      console.log('Categories response:', res.data); 
-      const categoriesArray = Array.isArray(res.data) ? res.data : [];
-    setCategories(categoriesArray);
+      const res = await axios.get(`${URL}/api/books/categories`);
+      setCategories(res.data);
       setFilteredCategories(res.data); // seed filtered list
     } catch (err) {
       console.error('Error fetching categories:', err);
@@ -180,7 +176,7 @@ function BrowseBooks() {
         searchISBN: isbn || undefined,
       };
 
-      const res = await axios.get(`${BACKEND_URL}/api/books`, { params }); // proper query params via Axios config
+      const res = await axios.get(`${URL}/api/books`, { params }); // proper query params via Axios config
       let data = Array.isArray(res.data) ? res.data : [];
 
       // client-side fallback filtering (case-insensitive)
@@ -228,7 +224,7 @@ function BrowseBooks() {
     setOpenDropdownId(null); // Close dropdown after selecting delete
     if (!window.confirm("Are you sure you want to delete this book?")) return;
     try {
-      const res = await axios.delete(`${BACKEND_URL}/api/books/${bookId}`); 
+      const res = await axios.delete(`${URL}/api/books/${bookId}`); 
       if (res.status === 200) {
         setBooks(prevBooks => prevBooks.filter(book => book.id !== bookId));
         alert('Book deleted successfully!');
@@ -244,7 +240,7 @@ function BrowseBooks() {
   const handleSaveBook = async (formData, bookId) => {
     try {
       if (bookId) {
-        const res = await axios.put(`${BACKEND_URL}/api/books/${bookId}`, formData);
+        const res = await axios.put(`${URL}/api/books/${bookId}`, formData);
         if (res.data.success) {
           setBooks(prevBooks => prevBooks.map(book => book.id === bookId ? { ...book, ...formData } : book));
           alert('Book updated successfully!');
@@ -252,7 +248,7 @@ function BrowseBooks() {
           throw new Error('Failed to update book');
         }
       } else {
-        const res = await axios.post(`${BACKEND_URL}/api/books`, formData);
+        const res = await axios.post(`${URL}/api/books`, formData);
         if (res.data.success) {
           setBooks(prevBooks => [...prevBooks, res.data.book]);
           alert('Book added successfully!');
@@ -271,7 +267,7 @@ function BrowseBooks() {
   const toggleStatus = async (bookId, currentStatus) => {
     const newStatus = currentStatus === 'Available' ? 'Borrowed' : 'Available';
     try {
-      const res = await axios.post(`${BACKEND_URL}/api/books/toggle-status`, {
+      const res = await axios.post(`${URL}/api/books/toggle-status`, {
         book_id: bookId,
         new_status: newStatus,
       });

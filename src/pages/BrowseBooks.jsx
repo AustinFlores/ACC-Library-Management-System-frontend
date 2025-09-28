@@ -159,7 +159,7 @@ function BrowseBooks() {
         categories.filter((cat) => String(cat).toLowerCase().includes(q))
       );
     }
-  }, [categories]);
+  }, []);
 
   // --- Fetch Books based on category and searches ---
   // Uses Axios params object, and also applies client-side fallback filtering

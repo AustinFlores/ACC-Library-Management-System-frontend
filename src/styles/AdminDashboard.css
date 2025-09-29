@@ -9,7 +9,7 @@
 }
 
 .admin-dashboard-content .dashboard-header {
-  padding-block: 1.8em;
+  padding-block: 1.2em;
   background-color: var(--primary-blue);
   position:absolute;
   top:0;
@@ -20,7 +20,7 @@
   margin-bottom: 0;
 }
 
-.profile-icon {
+.dashboard-header-content .profile-icon {
   height: 2em;
   width: 2em;
 }

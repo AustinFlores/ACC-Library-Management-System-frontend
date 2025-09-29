@@ -1,8 +1,8 @@
 /* ===================== Admin Dashboard General Styles ===================== */
 .admin-dashboard-container {
-  padding: 20px;
   background-color: #f5f6fa;
   min-height: 100vh;
+  margin-left: 20%;
 }
 
 .dashboard-header {

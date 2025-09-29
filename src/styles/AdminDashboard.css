@@ -21,8 +21,8 @@
 }
 
 .dashboard-header-content .profile-icon {
-  width: 0.8em !important;
-  height: 0.8em !important;
+  height: 1em;
+  width: 1em;
 }
 
 .dashboard-header-content {

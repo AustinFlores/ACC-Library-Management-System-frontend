@@ -5,17 +5,25 @@
 }
 
 .admin-dashboard-content {
-  margin: 2em;
+  margin-block: 8em;
 }
 
 .dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  
+  
   position:absolute;
   top:0;
   width:100vw;
   left:0;
+  height: 10em;
+}
+
+.dashboard-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: auto;
 }
 
 

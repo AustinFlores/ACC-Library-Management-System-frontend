@@ -165,7 +165,8 @@ function AdminDashboard() {
     <div className="admin-dashboard-container">
       <div className="admin-dashboard-content">
       <div className="dashboard-header">
-        <h1 className="dashboard-header-title">Admin Dashboard</h1>
+        <div className="dashboard-header-content">
+          <h1 className="dashboard-header-title">Admin Dashboard</h1>
       <div className="profile-container" ref={dropdownRef}>
           {isLoggedIn ? (
             <div className="profile" onClick={toggleDropdown}>
@@ -197,6 +198,7 @@ function AdminDashboard() {
               )}
             </div>
           )}
+        </div>
         </div>
       </div>
       

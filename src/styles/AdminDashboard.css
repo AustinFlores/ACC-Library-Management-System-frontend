@@ -4,6 +4,10 @@
   min-height: 100vh;
 }
 
+.admin-dashboard-content {
+  margin: 2em;
+}
+
 
 .dashboard-header {
   font-size: 2rem;

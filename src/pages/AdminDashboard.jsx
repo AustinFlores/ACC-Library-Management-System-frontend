@@ -144,6 +144,38 @@ function AdminDashboard() {
     <div className="admin-dashboard-container">
       <div className="admin-dashboard-content">
       <h1 className="dashboard-header">Admin Dashboard</h1>
+      <div className="profile-container" ref={dropdownRef}>
+          {isLoggedIn ? (
+            <div className="profile" onClick={toggleDropdown}>
+              <img
+                src="/images/guest-icon.png"
+                alt="Profile"
+                className={`profile-icon ${dropdownOpen ? "profile-active" : ""}`}
+              />
+              {dropdownOpen && (
+                <ul className="dropdown-menu">
+                  <li className="welcome-text">Welcome, {user.name}</li>
+                  <li onClick={handleLogout}>Logout</li>
+                </ul>
+              )}
+            </div>
+          ) : (
+            <div className="profile" onClick={toggleDropdown}>
+              <img
+                src="/images/guest-icon.png"
+                alt="Guest"
+                className={`profile-icon ${dropdownOpen ? "profile-active" : ""} guest`}
+              />
+              {dropdownOpen && (
+                <ul className="dropdown-menu">
+                  <li>You are accessing the library as Guest</li>
+                  <li onClick={() => navigate("/signin")}>Sign in</li>
+                  <li onClick={() => navigate("/signup")}>Sign up</li>
+                </ul>
+              )}
+            </div>
+          )}
+        </div>
       <div className="tab-buttons">
         <button onClick={() => setActiveTab('students')} className={activeTab === 'students' ? 'active' : ''}>
           Manage Students

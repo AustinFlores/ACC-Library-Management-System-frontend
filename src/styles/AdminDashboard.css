@@ -1,11 +1,11 @@
 /* ===================== Admin Dashboard General Styles ===================== */
 .admin-dashboard-container {
   background-color: #f5f6fa;
-  height: calc(100vh -4em);
+  height: calc(100vh -5em);
 }
 
 .admin-dashboard-content {
-  margin-block: 8em;
+  margin-block: 10em;
 }
 
 .admin-dashboard-content .dashboard-header {

@@ -248,7 +248,7 @@ function BrowseBooks() {
           throw new Error('Failed to update book');
         }
       } else {
-        const res = await axios.post(`${URL}/api/books`, formData);
+        const res = await axios.post(`${URL}/api/books/add`, formData);
         if (res.data.success) {
           setBooks(prevBooks => [...prevBooks, res.data.book]);
           alert('Book added successfully!');

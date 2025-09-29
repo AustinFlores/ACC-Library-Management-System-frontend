@@ -10,21 +10,20 @@ function AdminDashboard() {
   const navigate = useNavigate();
   const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
-  // Set initial tab to 'librarians' to match the image
-  const [activeTab, setActiveTab] = useState('librarians'); 
+  const [activeTab, setActiveTab] = useState('librarians'); // Keep 'librarians' active
 
-  // --- STUDENTS STATE ---
+  // --- STUDENTS STATE --- (unchanged)
   const [students, setStudents] = useState([]);
   const [studentsLoading, setStudentsLoading] = useState(true);
   const [studentsError, setStudentsError] = useState(null);
 
-  // --- LIBRARIANS STATE ---
+  // --- LIBRARIANS STATE --- (unchanged)
   const [librarians, setLibrarians] = useState([]);
   const [librariansLoading, setLibrariansLoading] = useState(true);
   const [librariansError, setLibrariansError] = useState(null);
   const [newLibrarian, setNewLibrarian] = useState({ name: '', email: '', password: '' });
 
-  // --- Authorization Check ---
+  // --- Authorization Check --- (unchanged)
   useEffect(() => {
     if (!user || user.role !== 'admin') {
       alert('You are not authorized to access this page.');
@@ -32,7 +31,7 @@ function AdminDashboard() {
     }
   }, [user, navigate]);
 
-  // --- FETCH STUDENTS ---
+  // --- FETCH STUDENTS --- (unchanged)
   useEffect(() => {
     const fetchStudents = async () => {
       setStudentsLoading(true);
@@ -54,7 +53,7 @@ function AdminDashboard() {
     fetchStudents();
   }, []);
 
-  // --- FETCH LIBRARIANS ---
+  // --- FETCH LIBRARIANS --- (unchanged)
   useEffect(() => {
     const fetchLibrarians = async () => {
       setLibrariansLoading(true);
@@ -76,7 +75,7 @@ function AdminDashboard() {
     fetchLibrarians();
   }, []);
 
-  // --- STUDENT ACTIONS ---
+  // --- STUDENT ACTIONS --- (unchanged)
   const handleDeleteStudent = async (studentId) => {
     if (!window.confirm(`Are you sure you want to delete student ${studentId}?`)) return;
     try {
@@ -93,7 +92,7 @@ function AdminDashboard() {
     }
   };
 
-  // --- LIBRARIAN ACTIONS ---
+  // --- LIBRARIAN ACTIONS --- (unchanged)
   const handleNewLibrarianChange = (e) => {
     const { name, value } = e.target;
     setNewLibrarian(prev => ({ ...prev, [name]: value }));
@@ -149,7 +148,7 @@ function AdminDashboard() {
         </button>
       </div>
 
-      {/* --- STUDENTS TAB --- */}
+      {/* --- STUDENTS TAB --- (unchanged from previous grid solution) */}
       {activeTab === 'students' && (
         <div className="tab-content">
           <h2>Manage Students</h2>
@@ -158,7 +157,6 @@ function AdminDashboard() {
           ) : studentsError ? (
             <p className="error-message">{studentsError}</p>
           ) : (
-            // --- GRID FOR STUDENTS ---
             <div className="data-grid-container">
               <div className="student-grid-wrapper"> {/* Specific wrapper for student grid */}
                 <div className="grid-header-row">
@@ -198,7 +196,7 @@ function AdminDashboard() {
         </div>
       )}
 
-      {/* --- LIBRARIANS TAB --- */}
+      {/* --- LIBRARIANS TAB --- (MODIFIED FOR HORIZONTAL GRID) */}
       {activeTab === 'librarians' && (
         <div className="tab-content">
           <h2>Create New Librarian</h2>
@@ -233,37 +231,38 @@ function AdminDashboard() {
           ) : librariansError ? (
             <p className="error-message">{librariansError}</p>
           ) : (
-            // --- GRID FOR LIBRARIANS ---
-            <div className="data-grid-container">
-              <div className="librarian-grid-wrapper"> {/* Specific wrapper for librarian grid */}
-                <div className="grid-header-row">
-                  <div className="grid-cell grid-header-cell">ID</div>
-                  <div className="grid-cell grid-header-cell">Name</div>
-                  <div className="grid-cell grid-header-cell">Email</div>
-                  <div className="grid-cell grid-header-cell">Actions</div>
-                </div>
-                {librarians.length === 0 ? (
-                  <div className="grid-data-row no-records-row">
-                    <div className="grid-cell grid-colspan-4">No librarian accounts found.</div>
-                  </div>
-                ) : (
-                  librarians.map(lib => (
-                    <div className="grid-data-row" key={lib.id}>
-                      <div className="grid-cell">{lib.id}</div>
-                      <div className="grid-cell">{lib.name}</div>
-                      <div className="grid-cell">{lib.email}</div>
-                      <div className="grid-cell">
-                        <button
-                          className="delete-button"
-                          onClick={() => handleDeleteLibrarian(lib.id)}
-                        >
-                          Delete
-                        </button>
-                      </div>
+            <div className="data-grid-container"> {/* Re-using this for general container styling */}
+                <div className="librarian-horizontal-grid"> {/* This is the main grid container for the horizontal layout */}
+                    {/* First "Column": Headers for each row */}
+                    <div className="horizontal-grid-header-column">
+                        <div className="horizontal-grid-cell horizontal-grid-header-cell">ID</div>
+                        <div className="horizontal-grid-cell horizontal-grid-header-cell">Name</div>
+                        <div className="horizontal-grid-cell horizontal-grid-header-cell">Email</div>
+                        <div className="horizontal-grid-cell horizontal-grid-header-cell">Actions</div>
                     </div>
-                  ))
-                )}
-              </div>
+
+                    {/* Subsequent "Columns": Data for each librarian, generated by map */}
+                    {librarians.length === 0 ? (
+                        // This div will span the remaining columns to show "No records found"
+                        <div className="horizontal-grid-empty-message">No librarian accounts found.</div>
+                    ) : (
+                        librarians.map(lib => (
+                            <div className="horizontal-grid-data-column" key={lib.id}>
+                                <div className="horizontal-grid-cell">{lib.id}</div>
+                                <div className="horizontal-grid-cell">{lib.name}</div>
+                                <div className="horizontal-grid-cell">{lib.email}</div>
+                                <div className="horizontal-grid-cell">
+                                    <button
+                                        className="delete-button"
+                                        onClick={() => handleDeleteLibrarian(lib.id)}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
             </div>
           )}
         </div>

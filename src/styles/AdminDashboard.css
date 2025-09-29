@@ -12,8 +12,7 @@
   color: #2f3640;
 }
 
-/* Not used in current JSX but kept for completeness */
-.page-description {
+.page-description { /* Not used in current JSX but kept for completeness */
   font-size: 1rem;
   color: #718093;
   margin-bottom: 20px;
@@ -98,8 +97,7 @@
   background-color: #fbc02d;
 }
 
-/* ===================== Data Grid Container (common wrapper) ===================== */
-/* This div acts like the old .data-table-container, providing padding, shadow, and overflow */
+/* ===================== Data Grid Container (common wrapper for both types of grids) ===================== */
 .data-grid-container {
   background-color: #ffffff;
   padding: 15px;
@@ -110,104 +108,140 @@
   overflow-x: auto; /* Allows horizontal scrolling if the grid content is too wide */
 }
 
-/* ===================== Base Grid Styles for Rows and Cells ===================== */
+/* ===================== Vertical Grid Styles (for Students) ===================== */
 
-/* Grid wrapper for actual grid layout. Student and Librarian tables will use these. */
-.student-grid-wrapper,
-.librarian-grid-wrapper {
+.student-grid-wrapper {
   display: grid;
-  /* Define a min-width for the grid itself to ensure horizontal scroll if it's too narrow */
-  min-width: 650px; /* Adjust this value as needed to control when scrolling appears */
+  min-width: 650px; /* Minimum width before horizontal scrollbar appears for students */
+  grid-template-columns: 0.5fr 1.2fr 1.8fr 1.2fr 0.8fr 0.8fr; /* Student columns */
 }
 
-/* General styles for header and data rows */
-.grid-header-row,
-.grid-data-row {
-  display: grid; /* Each row is its own grid */
-}
-
-/* Header row specific styles */
 .grid-header-row {
+  display: contents; /* Makes children participate in parent's grid, allowing for header background */
+}
+
+.grid-header-row > .grid-cell { /* Target header cells specifically */
+  background-color: #f1f2f6;
+  font-weight: 600;
+  color: #2f3640;
+  text-align: left; /* Default for headers */
+}
+
+.grid-data-row {
+  display: contents; /* Makes children participate in parent's grid */
+}
+
+.grid-data-row:hover > .grid-cell { /* Apply hover to all cells in a row */
+  background-color: #f9f9f9;
+}
+
+.grid-cell { /* Common styles for cells in the vertical grid */
+  padding: 12px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  display: flex; /* For vertical centering */
+  align-items: center;
+  white-space: normal; /* Allow text to wrap */
+}
+
+/* Specific Column Alignment for Student Grid */
+.student-grid-wrapper .grid-cell:nth-child(1), /* ID */
+.student-grid-wrapper .grid-cell:nth-child(5) { /* Year Level */
+  text-align: center;
+  justify-content: center;
+}
+.student-grid-wrapper .grid-cell:nth-child(6) { /* Actions */
+  text-align: center;
+  justify-content: center;
+}
+
+/* 'No Records Found' Row Styling for vertical tables */
+.grid-data-row.no-records-row > .grid-cell.grid-colspan-6 {
+  grid-column: 1 / -1; /* Spans all columns of the parent grid */
+  text-align: center;
+  justify-content: center;
+  padding: 20px 0;
+  color: #718093;
+  font-style: italic;
+  background-color: transparent !important; /* Override hover background */
+}
+
+
+/* ===================== Librarian Horizontal Grid Styles ===================== */
+
+.librarian-horizontal-grid {
+  display: grid;
+  /* Define 4 rows for ID, Name, Email, Actions */
+  grid-template-rows: repeat(4, auto); /* Each row sizes to its content height */
+
+  /* Define columns: first column for headers, rest auto-generated for librarian data */
+  grid-template-columns: 100px; /* Fixed width for the header column */
+  grid-auto-flow: column; /* THIS IS THE KEY: children flow into new columns */
+  grid-auto-columns: minmax(150px, 1fr); /* Min-width and flexible sizing for data columns */
+
+  /* The entire grid needs a min-width to trigger overflow-x: auto on its parent if content is too wide */
+  min-width: 100%;
+}
+
+/* Styles for all cells within the horizontal grid */
+.horizontal-grid-cell {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e0e0e0; /* Row separator */
+  border-right: 1px solid #e0e0e0; /* Column separator */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  display: flex;
+  align-items: center; /* Vertical centering */
+  white-space: normal; /* Allow text to wrap within cells */
+}
+
+/* Styling for the first (header) column */
+.horizontal-grid-header-column {
+  grid-column: 1; /* Explicitly place this div in the first grid column */
   background-color: #f1f2f6;
   font-weight: 600;
   color: #2f3640;
 }
 
-/* Data row hover effect */
-.grid-data-row:hover {
-  background-color: #f9f9f9;
+/* Styling for header cells within the header column */
+.horizontal-grid-header-cell {
+    text-align: left; /* Default alignment for header text */
 }
 
-/* Common cell styles (for both header and data cells) */
-.grid-cell {
-  padding: 12px 15px;
-  border-bottom: 1px solid #e0e0e0;
-  overflow-wrap: break-word; /* Ensures long text breaks to fit */
-  word-wrap: break-word;     /* Fallback */
-  
-  /* For vertical centering of content inside the cell */
-  display: flex;
-  align-items: center;
+/* Styling for data columns (each librarian's details) */
+.horizontal-grid-data-column {
+    /* These divs automatically become new columns due to grid-auto-flow: column on parent */
+    /* No explicit grid properties needed here */
 }
 
-/* Header cell specific text alignment */
-.grid-header-cell {
-  text-align: left; /* Default alignment for headers */
+/* Hover effect on entire data column (for each librarian) */
+.librarian-horizontal-grid .horizontal-grid-data-column:hover .horizontal-grid-cell {
+    background-color: #f9f9f9;
 }
 
 
-/* ===================== Specific Grid Column Definitions ===================== */
-
-/* Librarian Grid Column Definitions (4 columns) */
-.librarian-grid-wrapper {
-  grid-template-columns: 0.5fr 1.5fr 2fr 0.75fr; /* Using fractional units for flexibility */
-  /* If you prefer percentages: grid-template-columns: 10% 35% 40% 15%; */
-}
-/* Align content for specific columns in the librarian grid */
-.librarian-grid-wrapper .grid-cell:nth-child(1) { /* ID */
-  text-align: center;
-  justify-content: center; /* For flexbox centering */
-}
-.librarian-grid-wrapper .grid-cell:nth-child(4) { /* Actions */
-  text-align: center;
-  justify-content: center; /* For flexbox centering */
+/* Specific alignment for content within cells in the horizontal grid */
+.librarian-horizontal-grid .horizontal-grid-cell:nth-child(1), /* ID cell (regardless of header/data) */
+.librarian-horizontal-grid .horizontal-grid-cell:nth-child(4) { /* Actions cell */
+    text-align: center;
+    justify-content: center;
 }
 
-
-/* Student Grid Column Definitions (6 columns) */
-.student-grid-wrapper {
-  grid-template-columns: 0.5fr 1.2fr 1.8fr 1.2fr 0.8fr 0.8fr; /* Using fractional units */
-  /* If you prefer percentages: grid-template-columns: 8% 20% 27% 20% 10% 15%; */
-}
-/* Align content for specific columns in the student grid */
-.student-grid-wrapper .grid-cell:nth-child(1), /* ID */
-.student-grid-wrapper .grid-cell:nth-child(5) { /* Year Level */
-  text-align: center;
-  justify-content: center; /* For flexbox centering */
-}
-.student-grid-wrapper .grid-cell:nth-child(6) { /* Actions */
-  text-align: center;
-  justify-content: center; /* For flexbox centering */
-}
-
-
-/* ===================== 'No Records Found' Row Styling ===================== */
-.grid-data-row.no-records-row {
+/* Empty message styling for horizontal grid */
+.horizontal-grid-empty-message {
+  grid-column: 2 / -1; /* Starts from the second column and spans to the end */
+  grid-row: 1 / -1; /* Spans all defined rows (ID to Actions) */
   text-align: center;
   color: #718093;
+  padding: 20px 0;
   font-style: italic;
-}
-
-.grid-colspan-4 {
-  grid-column: span 4; /* Makes the cell span 4 columns */
-  text-align: center;
+  display: flex;
+  align-items: center;
   justify-content: center;
-}
-
-.grid-colspan-6 {
-  grid-column: span 6; /* Makes the cell span 6 columns */
-  text-align: center;
-  justify-content: center;
+  /* Add border to match other cells */
+  border-bottom: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0; /* Optional: if you want a right border for the empty area */
 }
 
 
@@ -246,16 +280,25 @@
     font-size: 1.8rem;
   }
 
-  .grid-cell { /* Adjust cell padding for smaller screens */
+  /* Apply to both grid types */
+  .grid-cell,
+  .horizontal-grid-cell {
     padding: 10px 8px;
   }
 }
 
 @media (max-width: 768px) {
-  /* Allow grid to shrink further before enabling scroll */
-  .student-grid-wrapper,
-  .librarian-grid-wrapper {
-    min-width: 450px; /* Reduced min-width for very small screens */
+  /* Student grid adjustments */
+  .student-grid-wrapper {
+    min-width: 450px; /* Reduced min-width for student grid */
+  }
+
+  /* Librarian horizontal grid adjustments */
+  .librarian-horizontal-grid {
+    /* Adjust min-width for horizontal scrolling on smaller screens */
+    min-width: 500px; /* Example min-width, adjust as needed */
+    grid-template-columns: 80px; /* Smaller header column */
+    grid-auto-columns: minmax(120px, 1fr); /* Smaller min-width for data columns */
   }
 
   .admin-dashboard-container h1 {

@@ -42,7 +42,7 @@ function ManageStudents() {
       }
     };
 
-    if (user && (user.role === 'librarian' || user.role === 'admin')) {
+    if (user && (user.role === 'librarian')) {
       fetchStudents();
     }
   }, [user]);

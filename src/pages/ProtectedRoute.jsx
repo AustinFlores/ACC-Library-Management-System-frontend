@@ -10,9 +10,13 @@ function ProtectedRoute({ children }) {
     return <Navigate to="/signin" />;
   }
   
-  if (user.role !== 'librarian') {
+  if (user.role === 'student') {
     // If logged in but not a librarian, redirect to the student dashboard
     return <Navigate to="/student/dashboard" />;
+  }
+
+  else if (user.role === 'admin') {
+    return <Navigate to="/admin/dashboard" />;
   }
 
   // If logged in and is a librarian, render the requested component

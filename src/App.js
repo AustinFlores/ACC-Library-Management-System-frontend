@@ -28,6 +28,7 @@ import ManageStudents from './pages/ManageStudents.jsx';
 import ViewBookings from './pages/ViewBookings.jsx';
 import ScanReturnBook from './pages/ScanReturnBook.jsx';
 import CreateAnnouncement from './pages/CreateAnnouncement.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
 
 import './styles/App.css';
 
@@ -55,6 +56,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<Faqs />} />
           <Route path="/student/dashboard" element={<StudentDashboard />} /> 
+          <Route path="/admin/dashboard" element={<AdminDashboard />} /> 
 
           {/* === Protected Librarian Dashboard Routes === */}
           {/* This parent route uses ProtectedRoute to guard access and LibrarianDashboard as the layout */}

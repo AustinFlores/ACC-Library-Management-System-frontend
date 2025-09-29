@@ -10,7 +10,7 @@ function AdminDashboard() {
   const navigate = useNavigate();
   const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
-  const [activeTab, setActiveTab] = useState('students'); // 'students' or 'librarians'
+  const [activeTab, setActiveTab] = useState('librarians'); // Set initial tab to 'librarians' to match image
 
   // --- STUDENTS STATE ---
   const [students, setStudents] = useState([]);
@@ -137,8 +137,10 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="admin-dashboard">
-      <h1>Admin Dashboard</h1>
+    // 1. Changed root div class to admin-dashboard-container
+    <div className="admin-dashboard-container">
+      {/* 2. Moved h1 directly inside the container, before tabs */}
+      <h1 className="dashboard-header">Admin Dashboard</h1> {/* Added dashboard-header class */}
       <div className="tab-buttons">
         <button onClick={() => setActiveTab('students')} className={activeTab === 'students' ? 'active' : ''}>
           Manage Students
@@ -151,13 +153,15 @@ function AdminDashboard() {
       {/* --- STUDENTS TAB --- */}
       {activeTab === 'students' && (
         <div className="tab-content">
+          <h2>Manage Students</h2> {/* Added a heading for the students section */}
           {studentsLoading ? (
             <p>Loading students...</p>
           ) : studentsError ? (
             <p className="error-message">{studentsError}</p>
           ) : (
             <div className="data-table-container">
-              <table className="data-table librarians">
+              {/* 3. Removed 'librarians' class from student table as it defines librarian-specific widths */}
+              <table className="data-table">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -225,7 +229,8 @@ function AdminDashboard() {
               value={newLibrarian.password}
               onChange={handleNewLibrarianChange}
             />
-            <button type="submit" className="btn-primary">Create Librarian</button>
+            {/* 4. Changed button class to the new specific class for the yellow button */}
+            <button type="submit" className="create-librarian-button">Create Librarian</button>
           </form>
 
           <h2>Existing Librarians</h2>
@@ -235,7 +240,8 @@ function AdminDashboard() {
             <p className="error-message">{librariansError}</p>
           ) : (
             <div className="data-table-container">
-              <table className="data-table">
+              {/* 5. Added 'librarians' class to the librarian table */}
+              <table className="data-table librarians">
                 <thead>
                   <tr>
                     <th>ID</th>

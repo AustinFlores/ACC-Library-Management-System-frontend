@@ -5,20 +5,103 @@
   min-height: 100vh;
 }
 
-.dashboard-header {
+.dashboard-header { /* This class is currently on the h1 in JSX. Let's make it more specific. */
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* Space between title and tabs */
   color: #2f3640;
 }
 
+/* Remove or adapt .page-description if not used */
 .page-description {
   font-size: 1rem;
   color: #718093;
   margin-bottom: 20px;
 }
 
-/* ===================== Table Container ===================== */
+/* ===================== Tab Buttons (Manage Students/Librarians) ===================== */
+.tab-buttons {
+  display: flex;
+  margin-top: 10px; /* Space below the main H1 title */
+  margin-bottom: 25px; /* Space below the tabs */
+  border-bottom: 1px solid #dcdde1; /* Subtle line below tabs, matching the image */
+  padding-bottom: 5px; /* Padding for the line */
+}
+
+.tab-buttons button {
+  padding: 8px 15px;
+  border: 1px solid #dcdde1; /* Light grey border for all tabs */
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin-right: 10px; /* Space between the buttons */
+  background-color: #ffffff; /* Default background for inactive tab (like 'Manage Students') */
+  color: #2f3640;
+  white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.tab-buttons button:hover {
+  background-color: #f1f2f6; /* Slightly lighter on hover */
+  border-color: #c8d6e5;
+}
+
+.tab-buttons button.active {
+  background-color: #f1f2f6; /* Background for active tab (like 'Manage Librarians') */
+  border-color: #a4b0be; /* Slightly darker border for active tab */
+  color: #2f3640;
+  font-weight: 600;
+}
+
+/* ===================== Section Headings (H2) ===================== */
+/* Apply consistent styling for "Create New Librarian" and "Existing Librarians" headings */
+.admin-dashboard-container h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 25px; /* Space above H2 headings */
+    margin-bottom: 15px; /* Space below H2 headings */
+    color: #2f3640;
+}
+
+/* ===================== Create Librarian Form ===================== */
+.create-librarian-form {
+  display: flex;
+  gap: 10px; /* Space between inputs and button */
+  margin-bottom: 30px; /* Space below the form and above "Existing Librarians" */
+  flex-wrap: wrap; /* Allow form elements to wrap on smaller screens */
+  align-items: center; /* Vertically align items in the form */
+}
+
+.create-librarian-form input {
+  flex: 1; /* Inputs take equal available space */
+  min-width: 150px; /* Minimum width for inputs before wrapping */
+  padding: 8px 12px;
+  border: 1px solid #dcdde1;
+  border-radius: 4px;
+  margin: 0; /* Override default input margin-bottom from other styles */
+  font-size: 0.95rem;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Custom button style for the yellow 'Create Librarian' button */
+.create-librarian-button {
+  background-color: #fdd835; /* Yellow color from image */
+  color: #333; /* Dark text on yellow */
+  padding: 8px 20px; /* Adjust padding for better visual match */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+  white-space: nowrap; /* Prevent button text from wrapping */
+}
+
+.create-librarian-button:hover {
+  background-color: #fbc02d; /* Slightly darker yellow on hover */
+}
+
+/* ===================== Table Container & Table ===================== */
+/* These styles are mostly good, just ensuring they are applied correctly */
 .data-table-container {
   background-color: #ffffff;
   padding: 15px;
@@ -32,7 +115,7 @@
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px;
+  min-width: 600px; /* Ensure table doesn't get too narrow */
 }
 
 .data-table th,
@@ -40,6 +123,7 @@
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
+  word-wrap: break-word; /* Important for long emails/names */
 }
 
 .data-table th {
@@ -52,23 +136,7 @@
   background-color: #f9f9f9;
 }
 
-.no-records-found {
-  text-align: center;
-  color: #718093;
-  padding: 20px 0;
-  font-style: italic;
-}
-
-/* ===================== Table Columns ===================== */
-.data-table th,
-.data-table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #e0e0e0;
-  word-wrap: break-word;
-}
-
-/* Librarian Table Columns */
+/* Librarian Table Columns - These are correctly targeted */
 .data-table.librarians th:nth-child(1),
 .data-table.librarians td:nth-child(1) {
   width: 10%; /* ID */
@@ -87,36 +155,17 @@
 .data-table.librarians th:nth-child(4),
 .data-table.librarians td:nth-child(4) {
   width: 15%; /* Actions */
-  text-align: center;
+  text-align: center; /* Center the delete button */
 }
 
-
-.data-table tr:hover {
-  background-color: #f9f9f9;
-}
-
-/* Optional: smaller font on mobile */
-@media (max-width: 768px) {
-  .data-table th,
-  .data-table td {
-    padding: 8px 6px;
-    font-size: 0.9rem;
-  }
-}
-
-
-/* ===================== Buttons ===================== */
-.delete-button,
-.add-button {
+/* Delete Button styling is already provided and looks correct */
+.delete-button {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s ease;
-}
-
-.delete-button {
   background-color: #e84118;
   color: white;
 }
@@ -125,23 +174,23 @@
   background-color: #c23616;
 }
 
-.add-button {
-  background-color: #00a8ff;
-  color: white;
-  margin-bottom: 15px;
+/* Error message styling (from your original code) */
+.error-message {
+  color: #e84118;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 20px;
 }
 
-.add-button:hover {
-  background-color: #0097e6;
-}
 
-/* ===================== Responsive ===================== */
+/* ===================== Responsive Adjustments ===================== */
+/* Existing responsive styles are generally good. Add form specific ones. */
 @media (max-width: 1024px) {
   .data-table-container {
     padding: 10px;
   }
 
-  .dashboard-header {
+  .admin-dashboard-container h1 { /* Target specific h1 for responsiveness */
     font-size: 1.8rem;
   }
 
@@ -156,87 +205,33 @@
     min-width: 100%;
   }
 
-  .dashboard-header {
+  .admin-dashboard-container h1 { /* Target specific h1 for responsiveness */
     font-size: 1.5rem;
   }
 
-  .page-description {
-    font-size: 0.9rem;
+  .admin-dashboard-container h2 { /* Target specific h2 for responsiveness */
+    font-size: 1.3rem;
   }
-}
 
-/* ===================== Form Modal (Optional for Add Librarian/Student) ===================== */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 1000;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  /* Responsive for the create librarian form */
+  .create-librarian-form {
+    flex-direction: column; /* Stack inputs and button vertically */
+    align-items: stretch; /* Stretch items to full width */
+  }
 
-.modal-content {
-  background-color: #fff;
-  padding: 25px 30px;
-  border-radius: 8px;
-  width: 400px;
-  max-width: 90%;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-}
+  .create-librarian-form input {
+    width: 100%; /* Full width for inputs */
+    min-width: unset; /* Remove min-width constraint */
+  }
 
-.modal-content h3 {
-  margin-bottom: 20px;
-  color: #2f3640;
-}
+  .create-librarian-form .create-librarian-button {
+    width: 100%; /* Full width for button */
+  }
 
-.modal-content label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-  color: #2f3640;
-}
-
-.modal-content input,
-.modal-content select {
-  width: 100%;
-  padding: 8px 10px;
-  margin-bottom: 15px;
-  border: 1px solid #dcdde1;
-  border-radius: 4px;
-}
-
-.modal-content .form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.modal-content .btn-primary {
-  background-color: #00a8ff;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.modal-content .btn-primary:hover {
-  background-color: #0097e6;
-}
-
-.modal-content .btn-secondary {
-  background-color: #dcdde1;
-  color: #2f3640;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.modal-content .btn-secondary:hover {
-  background-color: #c8d6e5;
+  .tab-buttons {
+    flex-wrap: wrap; /* Allow tabs to wrap if too many on small screens */
+  }
+  .tab-buttons button {
+    margin-bottom: 5px; /* Add some space if tabs wrap */
+  }
 }

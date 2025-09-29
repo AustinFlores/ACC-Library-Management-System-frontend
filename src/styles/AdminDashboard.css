@@ -5,14 +5,14 @@
   min-height: 100vh;
 }
 
-.dashboard-header { /* This class is currently on the h1 in JSX. Let's make it more specific. */
+.dashboard-header {
   font-size: 2rem;
   font-weight: 600;
-  margin-bottom: 10px; /* Space between title and tabs */
+  margin-bottom: 10px;
   color: #2f3640;
 }
 
-/* Remove or adapt .page-description if not used */
+/* .page-description is not currently used in JSX */
 .page-description {
   font-size: 1rem;
   color: #718093;
@@ -22,92 +22,89 @@
 /* ===================== Tab Buttons (Manage Students/Librarians) ===================== */
 .tab-buttons {
   display: flex;
-  margin-top: 10px; /* Space below the main H1 title */
-  margin-bottom: 25px; /* Space below the tabs */
-  border-bottom: 1px solid #dcdde1; /* Subtle line below tabs, matching the image */
-  padding-bottom: 5px; /* Padding for the line */
+  margin-top: 10px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #dcdde1;
+  padding-bottom: 5px;
 }
 
 .tab-buttons button {
   padding: 8px 15px;
-  border: 1px solid #dcdde1; /* Light grey border for all tabs */
+  border: 1px solid #dcdde1;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s ease;
-  margin-right: 10px; /* Space between the buttons */
-  background-color: #ffffff; /* Default background for inactive tab (like 'Manage Students') */
+  margin-right: 10px;
+  background-color: #ffffff;
   color: #2f3640;
-  white-space: nowrap; /* Prevent button text from wrapping */
+  white-space: nowrap;
 }
 
 .tab-buttons button:hover {
-  background-color: #f1f2f6; /* Slightly lighter on hover */
+  background-color: #f1f2f6;
   border-color: #c8d6e5;
 }
 
 .tab-buttons button.active {
-  background-color: #f1f2f6; /* Background for active tab (like 'Manage Librarians') */
-  border-color: #a4b0be; /* Slightly darker border for active tab */
+  background-color: #f1f2f6;
+  border-color: #a4b0be;
   color: #2f3640;
   font-weight: 600;
 }
 
 /* ===================== Section Headings (H2) ===================== */
-/* Apply consistent styling for "Create New Librarian" and "Existing Librarians" headings */
 .admin-dashboard-container h2 {
     font-size: 1.5rem;
     font-weight: 600;
-    margin-top: 25px; /* Space above H2 headings */
-    margin-bottom: 15px; /* Space below H2 headings */
+    margin-top: 25px;
+    margin-bottom: 15px;
     color: #2f3640;
 }
 
 /* ===================== Create Librarian Form ===================== */
 .create-librarian-form {
   display: flex;
-  gap: 10px; /* Space between inputs and button */
-  margin-bottom: 30px; /* Space below the form and above "Existing Librarians" */
-  flex-wrap: wrap; /* Allow form elements to wrap on smaller screens */
-  align-items: center; /* Vertically align items in the form */
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .create-librarian-form input {
-  flex: 1; /* Inputs take equal available space */
-  min-width: 150px; /* Minimum width for inputs before wrapping */
+  flex: 1;
+  min-width: 150px; /* Adjust as needed */
   padding: 8px 12px;
   border: 1px solid #dcdde1;
   border-radius: 4px;
-  margin: 0; /* Override default input margin-bottom from other styles */
+  margin: 0;
   font-size: 0.95rem;
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  box-sizing: border-box;
 }
 
-/* Custom button style for the yellow 'Create Librarian' button */
 .create-librarian-button {
   background-color: #fdd835; /* Yellow color from image */
-  color: #333; /* Dark text on yellow */
-  padding: 8px 20px; /* Adjust padding for better visual match */
+  color: #333;
+  padding: 8px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
   transition: background-color 0.2s;
-  white-space: nowrap; /* Prevent button text from wrapping */
+  white-space: nowrap;
 }
 
 .create-librarian-button:hover {
-  background-color: #fbc02d; /* Slightly darker yellow on hover */
+  background-color: #fbc02d;
 }
 
 /* ===================== Table Container & Table ===================== */
-/* These styles are mostly good, just ensuring they are applied correctly */
 .data-table-container {
   background-color: #ffffff;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  overflow-x: auto;
+  overflow-x: auto; /* Allows horizontal scrolling if table content still exceeds container */
   margin-bottom: 30px;
   width: 100%;
 }
@@ -115,7 +112,8 @@
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px; /* Ensure table doesn't get too narrow */
+  /* Removed min-width to ensure it always tries to fit its container initially */
+  /* min-width: 600px; */
 }
 
 .data-table th,
@@ -123,7 +121,10 @@
   padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
-  word-wrap: break-word; /* Important for long emails/names */
+  /* Prefer overflow-wrap for breaking long words */
+  overflow-wrap: break-word; /* Standard way to break words */
+  word-wrap: break-word;     /* Legacy for older browsers */
+  vertical-align: middle;    /* Vertically center content in cells */
 }
 
 .data-table th {
@@ -136,10 +137,20 @@
   background-color: #f9f9f9;
 }
 
-/* Librarian Table Columns - These are correctly targeted */
+.no-records-found {
+  text-align: center;
+  color: #718093;
+  padding: 20px 0;
+  font-style: italic;
+}
+
+/* ===================== Specific Table Column Widths ===================== */
+
+/* Librarian Table Columns */
 .data-table.librarians th:nth-child(1),
 .data-table.librarians td:nth-child(1) {
   width: 10%; /* ID */
+  text-align: center; /* Center the ID */
 }
 
 .data-table.librarians th:nth-child(2),
@@ -155,17 +166,51 @@
 .data-table.librarians th:nth-child(4),
 .data-table.librarians td:nth-child(4) {
   width: 15%; /* Actions */
-  text-align: center; /* Center the delete button */
+  text-align: center;
 }
 
-/* Delete Button styling is already provided and looks correct */
-.delete-button {
+/* Student Table Columns (Adjusted percentages for 6 columns) */
+.data-table:not(.librarians) th:nth-child(1),
+.data-table:not(.librarians) td:nth-child(1) {
+  width: 8%; /* ID */
+  text-align: center;
+}
+.data-table:not(.librarians) th:nth-child(2),
+.data-table:not(.librarians) td:nth-child(2) {
+  width: 20%; /* Name */
+}
+.data-table:not(.librarians) th:nth-child(3),
+.data-table:not(.librarians) td:nth-child(3) {
+  width: 27%; /* Email */
+}
+.data-table:not(.librarians) th:nth-child(4),
+.data-table:not(.librarians) td:nth-child(4) {
+  width: 20%; /* Course */
+}
+.data-table:not(.librarians) th:nth-child(5),
+.data-table:not(.librarians) td:nth-child(5) {
+  width: 10%; /* Year Level */
+  text-align: center; /* Center year level */
+}
+.data-table:not(.librarians) th:nth-child(6),
+.data-table:not(.librarians) td:nth-child(6) {
+  width: 15%; /* Actions */
+  text-align: center;
+}
+
+
+/* ===================== Buttons ===================== */
+.delete-button,
+.add-button {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s ease;
+}
+
+.delete-button {
   background-color: #e84118;
   color: white;
 }
@@ -174,23 +219,23 @@
   background-color: #c23616;
 }
 
-/* Error message styling (from your original code) */
-.error-message {
-  color: #e84118;
-  font-weight: 500;
-  text-align: center;
-  margin-top: 20px;
+.add-button {
+  background-color: #00a8ff;
+  color: white;
+  margin-bottom: 15px;
 }
 
+.add-button:hover {
+  background-color: #0097e6;
+}
 
-/* ===================== Responsive Adjustments ===================== */
-/* Existing responsive styles are generally good. Add form specific ones. */
+/* ===================== Responsive ===================== */
 @media (max-width: 1024px) {
   .data-table-container {
     padding: 10px;
   }
 
-  .admin-dashboard-container h1 { /* Target specific h1 for responsiveness */
+  .admin-dashboard-container h1 {
     font-size: 1.8rem;
   }
 
@@ -202,36 +247,38 @@
 
 @media (max-width: 768px) {
   .data-table {
-    min-width: 100%;
+    width: 100%;
+    /* You may add a min-width here if you prefer a scrollbar over squished columns on very small screens,
+       but usually, with good column percentages and word breaking, it should adapt. */
   }
 
-  .admin-dashboard-container h1 { /* Target specific h1 for responsiveness */
+  .admin-dashboard-container h1 {
     font-size: 1.5rem;
   }
 
-  .admin-dashboard-container h2 { /* Target specific h2 for responsiveness */
+  .admin-dashboard-container h2 {
     font-size: 1.3rem;
   }
 
-  /* Responsive for the create librarian form */
+  .page-description {
+    font-size: 0.9rem;
+  }
+
   .create-librarian-form {
-    flex-direction: column; /* Stack inputs and button vertically */
-    align-items: stretch; /* Stretch items to full width */
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .create-librarian-form input {
-    width: 100%; /* Full width for inputs */
-    min-width: unset; /* Remove min-width constraint */
-  }
-
+  .create-librarian-form input,
   .create-librarian-form .create-librarian-button {
-    width: 100%; /* Full width for button */
+    width: 100%;
+    min-width: unset;
   }
 
   .tab-buttons {
-    flex-wrap: wrap; /* Allow tabs to wrap if too many on small screens */
+    flex-wrap: wrap;
   }
   .tab-buttons button {
-    margin-bottom: 5px; /* Add some space if tabs wrap */
+    margin-bottom: 5px;
   }
 }

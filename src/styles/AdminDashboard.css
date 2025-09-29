@@ -2,7 +2,7 @@
 .admin-dashboard-container {
   background-color: #f5f6fa;
   min-height: 100vh;
-  margin-left: 20%;
+  padding-left: 20%;
 }
 
 .dashboard-header {

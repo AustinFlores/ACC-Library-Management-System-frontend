@@ -8,8 +8,8 @@
   margin-block: 8em;
 }
 
-.dashboard-header {
-  
+.admin-dashboard-content .dashboard-header {
+  padding-block: 1.8em;
   background-color: var(--primary-blue);
   position:absolute;
   top:0;
@@ -17,6 +17,7 @@
   left:0;
   display:flex;
   align-items: center;
+  margin-bottom: 0;
 }
 
 .profile-icon {

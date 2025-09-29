@@ -181,7 +181,7 @@ function Signin() {
           ) : (
             <>
               <p>
-                Are you a librarian?{' '}
+                Are you a librarian/admin?{' '}
                 <span className="link" onClick={() => { 
                   stopScanner();
                   setShowLibrarianLogin(true); setError(null); }}>

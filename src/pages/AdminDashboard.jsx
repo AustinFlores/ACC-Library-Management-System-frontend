@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/AdminDashboard.css';
-import '../styles/ManageStudents.css';
+
 
 function AdminDashboard() {
   const { user } = useAuth();

@@ -142,7 +142,6 @@ function AdminDashboard() {
   return (
     
     <div className="admin-dashboard-container">
-      <Sidebar />
       <div className="admin-dashboard-content">
       <h1 className="dashboard-header">Admin Dashboard</h1>
       <div className="tab-buttons">

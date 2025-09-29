@@ -10,12 +10,14 @@
 
 .dashboard-header {
   
-  
+  background-color: var(--primary-blue);
   position:absolute;
   top:0;
   width:100vw;
   left:0;
-  height: 10em;
+  height: 3.5em;
+  display:flex;
+  align-items: center;
 }
 
 .dashboard-header-content {
@@ -47,6 +49,12 @@
   margin-bottom: 25px;
   border-bottom: 1px solid #dcdde1;
   padding-bottom: 5px;
+  margin-left: 2em;
+}
+
+.tab-content {
+  width: 90%;
+  margin: auto;
 }
 
 .tab-buttons button {

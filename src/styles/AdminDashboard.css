@@ -18,12 +18,12 @@
   align-items: center;
   margin-bottom: 0;
   padding-bottom: 0;
-  padding-block: 1em;
+  padding-block: 1.2em;
 }
 
 .dashboard-header-content .profile-icon {
-  height: 1.2em;
-  width: 1.2em;
+  height: 1.5em;
+  width: 1.5em;
 }
 
 .dashboard-header-content {

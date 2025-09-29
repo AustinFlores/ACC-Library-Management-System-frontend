@@ -6,10 +6,25 @@ import '../styles/AdminDashboard.css';
 import Sidebar from './Sidebar';
 
 
+
 function AdminDashboard() {
-  const { user } = useAuth();
   const navigate = useNavigate();
   const URL = "https://acc-library-management-system-backend-1.onrender.com";
+  const { user, isLoggedIn, logout } = useAuth();
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const dropdownRef = useRef(null);
+  
+    const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+  
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setDropdownOpen(false);
+        }
+      };
+      document.addEventListener("click", handleClickOutside);
+      return () => document.removeEventListener("click", handleClickOutside);
+    }, []);
 
   // Setting initial tab to 'students' to match the new image.
   // If you always want 'librarians' to be active on load, keep it as 'librarians'.
@@ -77,6 +92,12 @@ function AdminDashboard() {
     };
     fetchLibrarians();
   }, []);
+
+  const handleLogout = () => {
+    logout(); 
+    setDropdownOpen(false);
+    navigate('/');
+  };
 
   // --- STUDENT ACTIONS --- (unchanged)
   const handleDeleteStudent = async (studentId) => {

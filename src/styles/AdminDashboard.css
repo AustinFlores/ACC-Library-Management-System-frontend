@@ -31,7 +31,7 @@
 .data-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 700px;
+  min-width: 600px;
 }
 
 .data-table th,
@@ -136,7 +136,7 @@
   background-color: #fff;
   padding: 25px 30px;
   border-radius: 8px;
-  width: 450px;
+  width: 400px;
   max-width: 90%;
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }

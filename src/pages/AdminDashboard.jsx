@@ -164,7 +164,8 @@ function AdminDashboard() {
     
     <div className="admin-dashboard-container">
       <div className="admin-dashboard-content">
-      <h1 className="dashboard-header">Admin Dashboard</h1>
+      <div className="dashboard-header">
+        <h1 className="dashboard-header-title">Admin Dashboard</h1>
       <div className="profile-container" ref={dropdownRef}>
           {isLoggedIn ? (
             <div className="profile" onClick={toggleDropdown}>
@@ -197,6 +198,8 @@ function AdminDashboard() {
             </div>
           )}
         </div>
+      </div>
+      
       <div className="tab-buttons">
         <button onClick={() => setActiveTab('students')} className={activeTab === 'students' ? 'active' : ''}>
           Manage Students

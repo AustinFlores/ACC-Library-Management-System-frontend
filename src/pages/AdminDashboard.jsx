@@ -143,6 +143,7 @@ function AdminDashboard() {
     
     <div className="admin-dashboard-container">
       <Sidebar />
+      <div className="admin-dashboard-content">
       <h1 className="dashboard-header">Admin Dashboard</h1>
       <div className="tab-buttons">
         <button onClick={() => setActiveTab('students')} className={activeTab === 'students' ? 'active' : ''}>
@@ -270,6 +271,7 @@ function AdminDashboard() {
           )}
         </div>
       )}
+    </div>
     </div>
   );
 }

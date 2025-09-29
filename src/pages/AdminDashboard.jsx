@@ -10,7 +10,8 @@ function AdminDashboard() {
   const navigate = useNavigate();
   const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
-  const [activeTab, setActiveTab] = useState('librarians'); // Set initial tab to 'librarians' to match image
+  // Set initial tab to 'librarians' to match the image
+  const [activeTab, setActiveTab] = useState('librarians'); 
 
   // --- STUDENTS STATE ---
   const [students, setStudents] = useState([]);
@@ -137,10 +138,8 @@ function AdminDashboard() {
   };
 
   return (
-    // 1. Changed root div class to admin-dashboard-container
     <div className="admin-dashboard-container">
-      {/* 2. Moved h1 directly inside the container, before tabs */}
-      <h1 className="dashboard-header">Admin Dashboard</h1> {/* Added dashboard-header class */}
+      <h1 className="dashboard-header">Admin Dashboard</h1>
       <div className="tab-buttons">
         <button onClick={() => setActiveTab('students')} className={activeTab === 'students' ? 'active' : ''}>
           Manage Students
@@ -153,51 +152,47 @@ function AdminDashboard() {
       {/* --- STUDENTS TAB --- */}
       {activeTab === 'students' && (
         <div className="tab-content">
-          <h2>Manage Students</h2> {/* Added a heading for the students section */}
+          <h2>Manage Students</h2>
           {studentsLoading ? (
             <p>Loading students...</p>
           ) : studentsError ? (
             <p className="error-message">{studentsError}</p>
           ) : (
-            <div className="data-table-container">
-              {/* 3. Removed 'librarians' class from student table as it defines librarian-specific widths */}
-              <table className="data-table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Course</th>
-                    <th>Year Level</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {students.length === 0 ? (
-                    <tr>
-                      <td colSpan="6">No student records found.</td>
-                    </tr>
-                  ) : (
-                    students.map(student => (
-                      <tr key={student.id}>
-                        <td>{student.id}</td>
-                        <td>{student.name}</td>
-                        <td>{student.email}</td>
-                        <td>{student.course}</td>
-                        <td>{student.year_level}</td>
-                        <td>
-                          <button
-                            className="delete-button"
-                            onClick={() => handleDeleteStudent(student.id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+            // --- GRID FOR STUDENTS ---
+            <div className="data-grid-container">
+              <div className="student-grid-wrapper"> {/* Specific wrapper for student grid */}
+                <div className="grid-header-row">
+                  <div className="grid-cell grid-header-cell">ID</div>
+                  <div className="grid-cell grid-header-cell">Name</div>
+                  <div className="grid-cell grid-header-cell">Email</div>
+                  <div className="grid-cell grid-header-cell">Course</div>
+                  <div className="grid-cell grid-header-cell">Year Level</div>
+                  <div className="grid-cell grid-header-cell">Actions</div>
+                </div>
+                {students.length === 0 ? (
+                  <div className="grid-data-row no-records-row">
+                    <div className="grid-cell grid-colspan-6">No student records found.</div>
+                  </div>
+                ) : (
+                  students.map(student => (
+                    <div className="grid-data-row" key={student.id}>
+                      <div className="grid-cell">{student.id}</div>
+                      <div className="grid-cell">{student.name}</div>
+                      <div className="grid-cell">{student.email}</div>
+                      <div className="grid-cell">{student.course}</div>
+                      <div className="grid-cell">{student.year_level}</div>
+                      <div className="grid-cell">
+                        <button
+                          className="delete-button"
+                          onClick={() => handleDeleteStudent(student.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           )}
         </div>
@@ -229,7 +224,6 @@ function AdminDashboard() {
               value={newLibrarian.password}
               onChange={handleNewLibrarianChange}
             />
-            {/* 4. Changed button class to the new specific class for the yellow button */}
             <button type="submit" className="create-librarian-button">Create Librarian</button>
           </form>
 
@@ -239,41 +233,37 @@ function AdminDashboard() {
           ) : librariansError ? (
             <p className="error-message">{librariansError}</p>
           ) : (
-            <div className="data-table-container">
-              {/* 5. Added 'librarians' class to the librarian table */}
-              <table className="data-table librarians">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {librarians.length === 0 ? (
-                    <tr>
-                      <td colSpan="4">No librarian accounts found.</td>
-                    </tr>
-                  ) : (
-                    librarians.map(lib => (
-                      <tr key={lib.id}>
-                        <td>{lib.id}</td>
-                        <td>{lib.name}</td>
-                        <td>{lib.email}</td>
-                        <td>
-                          <button
-                            className="delete-button"
-                            onClick={() => handleDeleteLibrarian(lib.id)}
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+            // --- GRID FOR LIBRARIANS ---
+            <div className="data-grid-container">
+              <div className="librarian-grid-wrapper"> {/* Specific wrapper for librarian grid */}
+                <div className="grid-header-row">
+                  <div className="grid-cell grid-header-cell">ID</div>
+                  <div className="grid-cell grid-header-cell">Name</div>
+                  <div className="grid-cell grid-header-cell">Email</div>
+                  <div className="grid-cell grid-header-cell">Actions</div>
+                </div>
+                {librarians.length === 0 ? (
+                  <div className="grid-data-row no-records-row">
+                    <div className="grid-cell grid-colspan-4">No librarian accounts found.</div>
+                  </div>
+                ) : (
+                  librarians.map(lib => (
+                    <div className="grid-data-row" key={lib.id}>
+                      <div className="grid-cell">{lib.id}</div>
+                      <div className="grid-cell">{lib.name}</div>
+                      <div className="grid-cell">{lib.email}</div>
+                      <div className="grid-cell">
+                        <button
+                          className="delete-button"
+                          onClick={() => handleDeleteLibrarian(lib.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           )}
         </div>

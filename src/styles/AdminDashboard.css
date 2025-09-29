@@ -12,7 +12,7 @@
   color: #2f3640;
 }
 
-/* .page-description is not currently used in JSX */
+/* Not used in current JSX but kept for completeness */
 .page-description {
   font-size: 1rem;
   color: #718093;
@@ -73,7 +73,7 @@
 
 .create-librarian-form input {
   flex: 1;
-  min-width: 150px; /* Adjust as needed */
+  min-width: 150px;
   padding: 8px 12px;
   border: 1px solid #dcdde1;
   border-radius: 4px;
@@ -98,119 +98,127 @@
   background-color: #fbc02d;
 }
 
-/* ===================== Table Container & Table ===================== */
-.data-table-container {
+/* ===================== Data Grid Container (common wrapper) ===================== */
+/* This div acts like the old .data-table-container, providing padding, shadow, and overflow */
+.data-grid-container {
   background-color: #ffffff;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  overflow-x: auto; /* Allows horizontal scrolling if table content still exceeds container */
   margin-bottom: 30px;
   width: 100%;
+  overflow-x: auto; /* Allows horizontal scrolling if the grid content is too wide */
 }
 
-.data-table {
-  width: 100%;
-  border-collapse: collapse;
-  /* Removed min-width to ensure it always tries to fit its container initially */
-  /* min-width: 600px; */
+/* ===================== Base Grid Styles for Rows and Cells ===================== */
+
+/* Grid wrapper for actual grid layout. Student and Librarian tables will use these. */
+.student-grid-wrapper,
+.librarian-grid-wrapper {
+  display: grid;
+  /* Define a min-width for the grid itself to ensure horizontal scroll if it's too narrow */
+  min-width: 650px; /* Adjust this value as needed to control when scrolling appears */
 }
 
-.data-table th,
-.data-table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #e0e0e0;
-  /* Prefer overflow-wrap for breaking long words */
-  overflow-wrap: break-word; /* Standard way to break words */
-  word-wrap: break-word;     /* Legacy for older browsers */
-  vertical-align: middle;    /* Vertically center content in cells */
+/* General styles for header and data rows */
+.grid-header-row,
+.grid-data-row {
+  display: grid; /* Each row is its own grid */
 }
 
-.data-table th {
+/* Header row specific styles */
+.grid-header-row {
   background-color: #f1f2f6;
   font-weight: 600;
   color: #2f3640;
 }
 
-.data-table tr:hover {
+/* Data row hover effect */
+.grid-data-row:hover {
   background-color: #f9f9f9;
 }
 
-.no-records-found {
+/* Common cell styles (for both header and data cells) */
+.grid-cell {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e0e0e0;
+  overflow-wrap: break-word; /* Ensures long text breaks to fit */
+  word-wrap: break-word;     /* Fallback */
+  
+  /* For vertical centering of content inside the cell */
+  display: flex;
+  align-items: center;
+}
+
+/* Header cell specific text alignment */
+.grid-header-cell {
+  text-align: left; /* Default alignment for headers */
+}
+
+
+/* ===================== Specific Grid Column Definitions ===================== */
+
+/* Librarian Grid Column Definitions (4 columns) */
+.librarian-grid-wrapper {
+  grid-template-columns: 0.5fr 1.5fr 2fr 0.75fr; /* Using fractional units for flexibility */
+  /* If you prefer percentages: grid-template-columns: 10% 35% 40% 15%; */
+}
+/* Align content for specific columns in the librarian grid */
+.librarian-grid-wrapper .grid-cell:nth-child(1) { /* ID */
+  text-align: center;
+  justify-content: center; /* For flexbox centering */
+}
+.librarian-grid-wrapper .grid-cell:nth-child(4) { /* Actions */
+  text-align: center;
+  justify-content: center; /* For flexbox centering */
+}
+
+
+/* Student Grid Column Definitions (6 columns) */
+.student-grid-wrapper {
+  grid-template-columns: 0.5fr 1.2fr 1.8fr 1.2fr 0.8fr 0.8fr; /* Using fractional units */
+  /* If you prefer percentages: grid-template-columns: 8% 20% 27% 20% 10% 15%; */
+}
+/* Align content for specific columns in the student grid */
+.student-grid-wrapper .grid-cell:nth-child(1), /* ID */
+.student-grid-wrapper .grid-cell:nth-child(5) { /* Year Level */
+  text-align: center;
+  justify-content: center; /* For flexbox centering */
+}
+.student-grid-wrapper .grid-cell:nth-child(6) { /* Actions */
+  text-align: center;
+  justify-content: center; /* For flexbox centering */
+}
+
+
+/* ===================== 'No Records Found' Row Styling ===================== */
+.grid-data-row.no-records-row {
   text-align: center;
   color: #718093;
-  padding: 20px 0;
   font-style: italic;
 }
 
-/* ===================== Specific Table Column Widths ===================== */
-
-/* Librarian Table Columns */
-.data-table.librarians th:nth-child(1),
-.data-table.librarians td:nth-child(1) {
-  width: 10%; /* ID */
-  text-align: center; /* Center the ID */
-}
-
-.data-table.librarians th:nth-child(2),
-.data-table.librarians td:nth-child(2) {
-  width: 35%; /* Name */
-}
-
-.data-table.librarians th:nth-child(3),
-.data-table.librarians td:nth-child(3) {
-  width: 40%; /* Email */
-}
-
-.data-table.librarians th:nth-child(4),
-.data-table.librarians td:nth-child(4) {
-  width: 15%; /* Actions */
+.grid-colspan-4 {
+  grid-column: span 4; /* Makes the cell span 4 columns */
   text-align: center;
+  justify-content: center;
 }
 
-/* Student Table Columns (Adjusted percentages for 6 columns) */
-.data-table:not(.librarians) th:nth-child(1),
-.data-table:not(.librarians) td:nth-child(1) {
-  width: 8%; /* ID */
+.grid-colspan-6 {
+  grid-column: span 6; /* Makes the cell span 6 columns */
   text-align: center;
-}
-.data-table:not(.librarians) th:nth-child(2),
-.data-table:not(.librarians) td:nth-child(2) {
-  width: 20%; /* Name */
-}
-.data-table:not(.librarians) th:nth-child(3),
-.data-table:not(.librarians) td:nth-child(3) {
-  width: 27%; /* Email */
-}
-.data-table:not(.librarians) th:nth-child(4),
-.data-table:not(.librarians) td:nth-child(4) {
-  width: 20%; /* Course */
-}
-.data-table:not(.librarians) th:nth-child(5),
-.data-table:not(.librarians) td:nth-child(5) {
-  width: 10%; /* Year Level */
-  text-align: center; /* Center year level */
-}
-.data-table:not(.librarians) th:nth-child(6),
-.data-table:not(.librarians) td:nth-child(6) {
-  width: 15%; /* Actions */
-  text-align: center;
+  justify-content: center;
 }
 
 
 /* ===================== Buttons ===================== */
-.delete-button,
-.add-button {
+.delete-button {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 500;
   transition: all 0.2s ease;
-}
-
-.delete-button {
   background-color: #e84118;
   color: white;
 }
@@ -219,19 +227,18 @@
   background-color: #c23616;
 }
 
-.add-button {
-  background-color: #00a8ff;
-  color: white;
-  margin-bottom: 15px;
+/* Error message styling */
+.error-message {
+  color: #e84118;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 20px;
 }
 
-.add-button:hover {
-  background-color: #0097e6;
-}
 
-/* ===================== Responsive ===================== */
+/* ===================== Responsive Adjustments ===================== */
 @media (max-width: 1024px) {
-  .data-table-container {
+  .data-grid-container {
     padding: 10px;
   }
 
@@ -239,17 +246,16 @@
     font-size: 1.8rem;
   }
 
-  .data-table th,
-  .data-table td {
+  .grid-cell { /* Adjust cell padding for smaller screens */
     padding: 10px 8px;
   }
 }
 
 @media (max-width: 768px) {
-  .data-table {
-    width: 100%;
-    /* You may add a min-width here if you prefer a scrollbar over squished columns on very small screens,
-       but usually, with good column percentages and word breaking, it should adapt. */
+  /* Allow grid to shrink further before enabling scroll */
+  .student-grid-wrapper,
+  .librarian-grid-wrapper {
+    min-width: 450px; /* Reduced min-width for very small screens */
   }
 
   .admin-dashboard-container h1 {

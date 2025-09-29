@@ -157,7 +157,7 @@ function AdminDashboard() {
             <p className="error-message">{studentsError}</p>
           ) : (
             <div className="data-table-container">
-              <table className="data-table">
+              <table className="data-table librarians">
                 <thead>
                   <tr>
                     <th>ID</th>

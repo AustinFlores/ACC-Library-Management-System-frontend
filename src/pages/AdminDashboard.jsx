@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/AdminDashboard.css';
+import Sidebar from './Sidebar';
 
 
 function AdminDashboard() {
@@ -139,7 +140,9 @@ function AdminDashboard() {
   };
 
   return (
+    
     <div className="admin-dashboard-container">
+      <Sidebar />
       <h1 className="dashboard-header">Admin Dashboard</h1>
       <div className="tab-buttons">
         <button onClick={() => setActiveTab('students')} className={activeTab === 'students' ? 'active' : ''}>

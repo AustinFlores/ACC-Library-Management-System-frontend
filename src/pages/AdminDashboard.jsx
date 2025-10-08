@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef} from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { replace, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/AdminDashboard.css';
-import Sidebar from './Sidebar';
 
 
 
@@ -26,30 +25,20 @@ function AdminDashboard() {
       return () => document.removeEventListener("click", handleClickOutside);
     }, []);
 
-  // Setting initial tab to 'students' to match the new image.
-  // If you always want 'librarians' to be active on load, keep it as 'librarians'.
   const [activeTab, setActiveTab] = useState('students'); 
 
-  // --- STUDENTS STATE --- (unchanged)
   const [students, setStudents] = useState([]);
   const [studentsLoading, setStudentsLoading] = useState(true);
   const [studentsError, setStudentsError] = useState(null);
 
-  // --- LIBRARIANS STATE --- (unchanged)
   const [librarians, setLibrarians] = useState([]);
   const [librariansLoading, setLibrariansLoading] = useState(true);
   const [librariansError, setLibrariansError] = useState(null);
   const [newLibrarian, setNewLibrarian] = useState({ name: '', email: '', password: '' });
 
-  // --- Authorization Check --- (unchanged)
-  useEffect(() => {
-    if (!user || user.role !== 'admin') {
-      alert('You are not authorized to access this page.');
-      navigate('/', { replace: true });
-    }
-  }, [user, navigate]);
+ 
 
-  // --- FETCH STUDENTS --- (unchanged)
+  //FETCH STUDENTS
   useEffect(() => {
     const fetchStudents = async () => {
       setStudentsLoading(true);
@@ -71,7 +60,7 @@ function AdminDashboard() {
     fetchStudents();
   }, []);
 
-  // --- FETCH LIBRARIANS --- (unchanged)
+  //FETCH LIBRARIANS
   useEffect(() => {
     const fetchLibrarians = async () => {
       setLibrariansLoading(true);
@@ -96,7 +85,7 @@ function AdminDashboard() {
   const handleLogout = () => {
     logout(); 
     setDropdownOpen(false);
-    navigate('/');
+    navigate('/signin');
   };
 
   // --- STUDENT ACTIONS --- (unchanged)
@@ -166,6 +155,7 @@ function AdminDashboard() {
       <div className="admin-dashboard-content">
       <div className="dashboard-header">
         <div className="dashboard-header-content">
+          <img src="/images/acc_logo.png" alt="acc logo" className='acc-logo admin-page'/>
           <h1 className="dashboard-header-title">Admin Dashboard</h1>
       <div className="profile-container" ref={dropdownRef}>
           {isLoggedIn ? (

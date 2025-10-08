@@ -40,6 +40,11 @@
 
 }
 
+.menu-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
 
 .nav-item {
   letter-spacing: 0.1em;
@@ -135,7 +140,7 @@
   cursor: pointer;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 1200px) {
   .header {
     height: auto;
     padding-block: 1em;
@@ -186,4 +191,46 @@
     width: 2.5em;
     height: 2.5em;
   }
+
+  .menu-wrapper {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: rgba(23, 73, 150, 0.95);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding: 1em 0;
+   
+  }
+
+  .menu-wrapper.show {
+    display: flex;
+  
+  }
+
+  .nav-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+  }
+
+  .profile-container {
+    margin-top: 1em; /* Stack below nav */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-item {
+    font-size: 1.1rem;
+    padding: 0.5em 0;
+  }
+
+  .btn-primary {
+    margin-top: 0.5em;
+  }
 }
+

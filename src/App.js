@@ -10,7 +10,6 @@ import HomeRedirector from './pages/HomeRedirector.jsx';
 import Signin from './pages/Signin.jsx';
 import Signup from './pages/Signup.jsx';
 import VisitLibrary from './pages/VisitLibrary.jsx';
-import RequestQR from './pages/RequestQR.jsx';
 import BrowseBooks from './pages/BrowseBooks.jsx';
 import BorrowRequest from './pages/BorrowRequest.jsx';
 import Contact from './pages/Contact.jsx';
@@ -20,7 +19,7 @@ import BorrowedBooks from './pages/BorrowedBooks.jsx';
 import ManageStudentBookings from './pages/ManageStudentBookings.jsx';
 import OverdueBooks from './pages/OverdueBooks.jsx';
 
-// Librarian Dashboard Components
+// Librarian/Admin Dashboard Components
 import LibrarianDashboard from './pages/LibrarianDashboard.jsx';
 import ProtectedRoute from './pages/ProtectedRoute.jsx';
 import DashboardHome from './pages/DashboardHome.jsx';
@@ -29,6 +28,7 @@ import ViewBookings from './pages/ViewBookings.jsx';
 import ScanReturnBook from './pages/ScanReturnBook.jsx';
 import CreateAnnouncement from './pages/CreateAnnouncement.jsx';
 import AdminDashboard from './pages/AdminDashboard.jsx';
+import AdminRoute from './pages/AdminRoute.jsx';
 
 import './styles/App.css';
 
@@ -50,13 +50,12 @@ function App() {
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/visit-library" element={<VisitLibrary />} />
-          <Route path="/requestqr" element={<RequestQR />} />
           <Route path="/browse-books" element={<BrowseBooks />} />
           <Route path="/borrow-request" element={<BorrowRequest />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faqs" element={<Faqs />} />
           <Route path="/student/dashboard" element={<StudentDashboard />} /> 
-          <Route path="/admin/dashboard" element={<AdminDashboard />} /> 
+          <Route path="/admin/dashboard" element={<AdminRoute><AdminDashboard /></AdminRoute>} /> 
 
           {/* === Protected Librarian Dashboard Routes === */}
           {/* This parent route uses ProtectedRoute to guard access and LibrarianDashboard as the layout */}

@@ -41,7 +41,7 @@ function StudentDashboard() {
       if (!isLoggedIn || !user || user.role !== 'student' || !user.id) {
         setError('You are not authorized or logged in as a student.');
         setLoading(false);
-        if (!isLoggedIn) navigate('/signin', { replace: true });
+        if (!isLoggedIn) navigate('/', { replace: true });
         else if (user.role !== 'student') navigate('/', { replace: true });
         return;
       }
@@ -144,9 +144,6 @@ function StudentDashboard() {
                 ))
               )}
             </ul>
-            <Link to="/announcements" className="view-details-link">
-              View All Announcements
-            </Link>
           </div>
 
           <div className="student-recommendations dashboard-card">

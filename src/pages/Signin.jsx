@@ -188,10 +188,9 @@ function Signin() {
                   Login with password
                 </span>
               </p>
-              <p>Lost access to your QR code? <a href="/requestqr" className='requestQR link'>Request your QR code</a></p>
             </>
           )}
-          <p className='signup-text'>No account yet? <a href="/signup" className='signup-link link'>Signup now</a></p>
+          <p className='signup-text signin-page'>No account yet? <a href="/signup" className='signup-link link'>Signup now</a></p>
         </div>
       </div>
     </>

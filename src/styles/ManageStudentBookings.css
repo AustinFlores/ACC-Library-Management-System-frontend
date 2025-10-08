@@ -46,7 +46,7 @@
 .manage-student-bookings-description,
 .no-bookings {
   font-size: 1.1rem;
-  color: #fff;
+  color: var(--dark-text);
   margin-bottom: 2rem;
   margin-top: 0;
   text-align: center;

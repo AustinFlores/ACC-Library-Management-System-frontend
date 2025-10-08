@@ -14,8 +14,8 @@ function Signup() {
   });
 
   const [successMessage, setSuccessMessage] = useState('');
-  const [qrImage, setQrImage] = useState(''); // QR code image (data:, http(s):, or blob:)
-  const [lastGeneratedId, setLastGeneratedId] = useState(''); // for filename
+  const [qrImage, setQrImage] = useState('');
+  const [lastGeneratedId, setLastGeneratedId] = useState('');
   const URL = "https://acc-library-management-system-backend-1.onrender.com";
 
   const handleSignup = async (e) => {
@@ -23,9 +23,14 @@ function Signup() {
     setSuccessMessage('');
     setQrImage('');
 
+    const emailDomain = formData.email.split('@')[1];
+    if (emailDomain !== 'asianos.edu.ph') {
+      setSuccessMessage('Please use your @asianos.edu.ph email to sign up.');
+      return;
+    }
+
     try {
       const res = await axios.post(`${URL}/signup`, formData);
-      console.log(res.data);
 
       if (res.data.success) {
         setSuccessMessage('Signup successful! You can now sign in.');
@@ -33,19 +38,13 @@ function Signup() {
         const qrRes = await axios.get(`${URL}/generate-qr?id=${formData.id}`);
         if (qrRes.data?.success && qrRes.data?.qrImage) {
           let img = qrRes.data.qrImage;
-
-          // Normalize: if it's raw base64 (no scheme), prefix to form a data URL
-          if (typeof img === 'string') {
-            const lower = img.slice(0, 10).toLowerCase();
-            const isData = lower.startsWith('data:');
-            const isHttp = lower.startsWith('http');
-            const isBlob = lower.startsWith('blob:');
-
-            if (!isData && !isHttp && !isBlob) {
-              img = `data:image/png;base64,${img}`;
-            }
+          const lower = img.slice(0, 10).toLowerCase();
+          const isData = lower.startsWith('data:');
+          const isHttp = lower.startsWith('http');
+          const isBlob = lower.startsWith('blob:');
+          if (!isData && !isHttp && !isBlob) {
+            img = `data:image/png;base64,${img}`;
           }
-
           setQrImage(img);
           setLastGeneratedId(formData.id || 'account');
         }
@@ -72,7 +71,6 @@ function Signup() {
       if (!qrImage) return;
       const fileName = `qr-${lastGeneratedId || 'account'}.png`;
 
-      // If data URL or blob URL, use anchor download directly
       if (qrImage.startsWith('data:') || qrImage.startsWith('blob:')) {
         const a = document.createElement('a');
         a.href = qrImage;
@@ -83,7 +81,6 @@ function Signup() {
         return;
       }
 
-      // Otherwise, fetch the image (supports cross-origin if server allows CORS), then create blob URL
       const res = await fetch(qrImage, { mode: 'cors' });
       const blob = await res.blob();
       const url = URL.createObjectURL(blob);
@@ -107,7 +104,10 @@ function Signup() {
         <div className="signup-container">
           <form className="signup-form" onSubmit={handleSignup}>
             <h1 className="signup-title">Signup Page</h1>
-          <p className="signup-description">Create your account to borrow, reserve, and explore books anytime.</p>
+            <p className="signup-description">
+              Create your account to borrow, reserve, and explore books anytime.
+            </p>
+
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="studentId" className="form-label">Student ID:</label>
@@ -202,27 +202,26 @@ function Signup() {
               Already have an account? <a href="/signin" className="signin-link">Sign in</a>
             </p>
           </form>
+
           <div className="generated-qr-area">
+            {successMessage && (
+              <p className={`signup-message ${successMessage.includes('successful') ? 'success' : 'error'}`}>
+                {successMessage}
+              </p>
+            )}
 
-          {successMessage && (
-            <p className={`signup-message ${successMessage.includes('successful') ? 'success' : 'error'}`}>
-              {successMessage}
-            </p>
-          )}
-
-          {qrImage && (
-            <div className="qr-section">
-              <h3 className="qr-title">Your QR Code:</h3>
-              <img src={qrImage} alt="QR Code" className="qr-image" />
-              <p>This will serve as your digital library card.</p>
-              <div className="qr-actions">
-                <button type="button" className="btn-secondary qr-download-btn" onClick={downloadQr}>
-                  Download QR
-                </button>
+            {qrImage && (
+              <div className="qr-section">
+                <h3 className="qr-title">Your QR Code:</h3>
+                <img src={qrImage} alt="QR Code" className="qr-image" />
+                <p>This will serve as your digital library card.</p>
+                <div className="qr-actions">
+                  <button type="button" className="btn-secondary qr-download-btn" onClick={downloadQr}>
+                    Download QR
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
-
+            )}
           </div>
         </div>
       </div>

@@ -1,4 +1,6 @@
-/* Color variables from your theme */
+/* =========================
+   Color Variables
+========================= */
 :root {
   --primary-blue: #0f2e68;
   --accent-yellow: #f5c542;
@@ -11,12 +13,16 @@
   --blue-info: #007bff;
 }
 
+/* =========================
+   Page & Container
+========================= */
 .borrowed-books-page {
   display: flex;
   justify-content: center;
   background-color: #a0b2d3;
   min-height: 100vh;
   overflow-x: hidden;
+  padding-inline: 2em;
 }
 
 .borrowed-books-container {
@@ -30,18 +36,24 @@
   max-width: 1200px;
 }
 
-/* NEW: wrapper just for horizontal scrolling */
-.borrowed-books-table-wrapper {
+/* =========================
+   Scrollable Wrapper
+========================= */
+.borrowed-books-table-wrapper,
+.borrow-requests-table-wrapper {
   overflow-x: auto;
   border-radius: 8px;
   margin-top: 1rem;
+  -webkit-overflow-scrolling: touch; /* smooth mobile scroll */
 }
 
-/* --- Borrowed Books List Table-like Layout --- */
+/* =========================
+   Borrowed Books (5 columns)
+========================= */
 .borrowed-books-list {
   display: grid;
   grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr;
-  min-width: 900px; /* keeps columns from collapsing */
+  min-width: 900px;
   border: 1px solid var(--border-color);
   border-radius: 8px;
 }
@@ -54,6 +66,36 @@
   text-align: center;
 }
 
+/* =========================
+   Borrow Requests (6 columns)
+========================= */
+.borrow-requests-title {
+  margin-top: 3em;
+  font-size: 1.8em;
+  color: var(--primary-blue);
+  text-align: center;
+}
+
+.borrow-requests-table-wrapper {
+  margin-top: 1.5em;
+  background-color: #f7f9fc;
+  border-radius: 10px;
+  padding: 1.5em;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.borrow-requests-list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  min-width: 1100px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: white;
+}
+
+/* =========================
+   Text & Empty States
+========================= */
 .borrowed-books-description,
 .no-borrowed-books {
   font-size: 1.1rem;
@@ -69,6 +111,9 @@
   border-radius: 8px;
 }
 
+/* =========================
+   Shared Table Styling
+========================= */
 .borrowed-book-header {
   display: contents;
 }
@@ -93,10 +138,8 @@
   border-bottom: 1px solid var(--border-color);
   color: var(--dark-text);
   font-size: 0.95rem;
-  overflow: visible;
-  text-overflow: unset;
-  white-space: normal; /* allow wrapping on small screens */
   text-align: left;
+  white-space: normal;
 }
 
 .borrowed-book-row:last-of-type > div {
@@ -107,7 +150,9 @@
   background-color: #f0f4f8;
 }
 
-/* Specific Column Styling */
+/* =========================
+   Column Styles
+========================= */
 .book-title,
 .book-author {
   font-weight: 500;
@@ -119,16 +164,21 @@
   color: #666;
 }
 
-/* Status Styling */
+/* =========================
+   Status Styles
+========================= */
 .book-status {
   font-weight: bold;
 }
+
 .book-status.borrowed {
   color: var(--primary-blue);
 }
+
 .book-status.returned {
   color: var(--green-success);
 }
+
 .book-status.overdue {
   color: var(--red-overdue);
 }
@@ -138,7 +188,9 @@
   font-weight: bold;
 }
 
-/* Actions Styling */
+/* =========================
+   Buttons
+========================= */
 .book-actions {
   display: flex;
   justify-content: flex-end;
@@ -160,16 +212,48 @@
   background-color: #e4b43a;
 }
 
-/* ✅ Remove column hiding: keep all columns visible */
-@media (max-width: 992px),
-(max-width: 768px),
-(max-width: 576px) {
+/* =========================
+   Responsive Fix
+========================= */
+@media (max-width: 992px) {
   .borrowed-books-list {
-    grid-template-columns: 2fr 1.5fr 1fr 1fr 1fr;
+    min-width: 700px;
   }
 
-  .borrowed-book-header > div,
-  .borrowed-book-row > div {
-    display: block;
+  .borrow-requests-list {
+    min-width: 900px;
+  }
+
+  .borrowed-books-container {
+    padding: 2rem;
+  }
+
+  .borrowed-books-title,
+  .borrow-requests-title {
+    font-size: 1.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .borrowed-books-list {
+    min-width: 600px;
+  }
+
+  .borrow-requests-list {
+    min-width: 750px;
+  }
+
+  .borrowed-books-container {
+    padding: 1.5rem;
+  }
+
+  .borrowed-books-title,
+  .borrow-requests-title {
+    font-size: 1.5rem;
+  }
+
+  .btn-action.renew-btn {
+    font-size: 0.8rem;
+    padding: 0.5rem 0.8rem;
   }
 }

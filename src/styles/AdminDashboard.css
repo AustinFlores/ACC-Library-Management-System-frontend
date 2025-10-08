@@ -1,11 +1,16 @@
 /* ===================== Admin Dashboard General Styles ===================== */
 .admin-dashboard-container {
   background-color: #f5f6fa;
-  height: calc(100vh -5em);
+  height: 100vh;
+}
+
+.acc-logo {
+  height: 2.5em;
+  width: auto;
 }
 
 .admin-dashboard-content {
-  margin-block: 10em;
+  padding-top: 10em;
 }
 
 .admin-dashboard-content .dashboard-header {
@@ -18,7 +23,7 @@
   align-items: center;
   margin-bottom: 0;
   padding-bottom: 0;
-  padding-block: 1.2em;
+  padding-block: 0.5em;
 }
 
 .dashboard-header-content .profile-icon {
@@ -45,7 +50,7 @@
   color: #fff;
 }
 
-.page-description { /* Not used in current JSX but kept for completeness */
+.page-description {
   font-size: 1rem;
   color: #718093;
   margin-bottom: 20px;

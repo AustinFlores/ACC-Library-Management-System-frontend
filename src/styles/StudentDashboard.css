@@ -312,4 +312,19 @@
   .student-dashboard-subtitle {
     font-size: 1rem;
   }
+
+  
+}
+
+@media (max-width: 768px) {
+  .student-recommendations.dashboard-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .recommended-book-card .btn-action.borrow-recommendation-btn {
+    width: 50%;
+  }
 }

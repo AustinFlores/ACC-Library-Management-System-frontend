@@ -10,7 +10,7 @@ function ScanReturnBook() {
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const COOLDOWN_MS = 5000; // 5 seconds cooldown (debounce identical scans)
+  const COOLDOWN_MS = 5000;
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [statusMessage, setStatusMessage] = useState({ type: "", text: "" });

@@ -6,31 +6,28 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: 4em;
-  
+
 }
 
 .signin-content {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center vertically */
-  align-items: center;     /* Center horizontally */
+  justify-content: center;
+  align-items: center;
   width: 40%;
-  margin-inline: auto;
-  margin-top: 7em;
+  margin: 7em auto 0;
   gap: 1.4em;
   background-color: rgba(255, 255, 255, 0.4);
   padding: 2em 4em;
   border-radius: 15px;
+  box-sizing: border-box;
 }
-
 
 .librarian-form .btn-primary {
   font-size: 1em;
   margin: 0 auto;
 }
 
-/* Reader styling */
 #reader {
   width: 25rem;
   height: 25rem;
@@ -40,9 +37,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
 }
 
-/* Video styling */
 #reader video {
   width: 100%;
   height: 100%;
@@ -50,20 +47,69 @@
   transform: scaleX(-1);
 }
 
-
-
 .signin-content .status-message label {
   font-size: 1.3em;
   font-weight: bold;
   margin-top: 1em;
-  width: 100% !important;
+  width: 100%;
+  text-align: center;
 }
 
 .signin-text-container {
-  text-align:center;
-  margin-top: .9em;
+  text-align: center;
+  margin-top: 0.9em;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
+}
+
+.signup-text.signin-page {
+  font-size: inherit;
+}
+
+/* ✅ RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+  .signin-content {
+    width: 60%;
+    padding: 2em 3em;
+  }
+
+  #reader {
+    width: 20rem;
+    height: 20rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .signin-content {
+    width: 85%;
+    padding: 1.5em 2em;
+  }
+
+  #reader {
+    width: 100%;
+    max-width: 18rem;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .signin-content .status-message label {
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .signin-content {
+    width: 90%;
+    padding: 1.2em;
+  }
+
+  #reader {
+    max-width: 16rem;
+  }
+
+  .signin-content .status-message label {
+    font-size: 1em;
+  }
 }

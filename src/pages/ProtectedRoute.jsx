@@ -6,8 +6,8 @@ function ProtectedRoute({ children }) {
   const { user, isLoggedIn } = useAuth();
 
   if (!isLoggedIn) {
-    // If not logged in, redirect to the signin page
-    return <Navigate to="/signin" />;
+    // If not logged in, redirect to the home page
+    return <Navigate to="/" />;
   }
   
   if (user.role === 'student') {

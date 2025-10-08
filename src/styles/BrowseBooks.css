@@ -185,6 +185,7 @@
   /* Define grid on the container and use the CSS variable */
   display: grid;
   grid-template-columns: var(--book-grid-columns, 2fr 1.5fr 1fr 1.5fr); /* Fallback to student view */
+  margin-bottom: 7em;
 }
 
 /* Make children of book-header and book-row participate directly in .book-container's grid */
@@ -305,7 +306,6 @@
   cursor: not-allowed;
   color: #666666;
 }
-
 
 
 
@@ -500,48 +500,176 @@
   }
 }
 
-@media (max-width: 768px) {
-  .search-inputs-container {
-    flex-direction: column;
-    align-items: stretch; /* Stretch items to full width */
+/* --- Responsive Design for BrowseBooks Page --- */
+
+/* --- Tablet screens --- */
+@media (max-width: 1024px) {
+  .category-page {
+    padding-inline: 3em;
   }
-  .search-input, .back-to-categories {
-    max-width: none; /* Allow inputs to take full width */
+
+  .category-title {
+    font-size: 2em;
+  }
+
+  .search-inputs-container {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .book-container {
-    grid-template-columns: var(--book-grid-columns, 1.5fr 1fr 1.5fr); /* Default: Title, Status, Actions */
-  }
-  .book-container[style*="--book-grid-columns"]:has(.book-isbn) { /* Librarian without author */
-    /* Adjusted */
-    grid-template-columns: var(--book-grid-columns, 1.5fr 0.8fr 1fr 2fr);
+    overflow-x: auto;
+    display: block; /* Allow horizontal scrolling for many columns */
   }
 
-  /* Hide specific columns on smaller screens */
-  .book-header .book-author,
-  .book-row .book-author {
-    display: none; 
+  .book-header,
+  .book-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   }
 
-  .book-actions .btn-action {
-    min-width: unset; /* Remove min-width to allow shrinking */
-    width: 100%; /* Make action buttons fill available space */
+  .book-header > div,
+  .book-row > div {
+    padding: 0.75em;
   }
 }
 
-@media (max-width: 576px) {
-  .book-container {
-    grid-template-columns: var(--book-grid-columns, 1fr 1.2fr); /* Default: Title, Actions */
-  }
-  .book-container[style*="--book-grid-columns"]:has(.book-isbn) { /* Librarian without ISBN */
-    /* Adjusted */
-    grid-template-columns: var(--book-grid-columns, 1fr 1.5fr);
+/* --- Mobile screens --- */
+@media (max-width: 768px) {
+  .category-page {
+    padding-inline: 1.5em;
+    padding-top: 5em;
   }
 
-  .book-header .book-status,
-  .book-row .book-status,
-  .book-header .book-isbn,
-  .book-row .book-isbn {
-    display: none;
+  .category-title {
+    font-size: 1.7em;
   }
+
+  .category-search {
+    width: 100%;
+    margin: 0 0 10px 0;
+  }
+
+  .category-search-button {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .category-list {
+    grid-template-columns: 1fr 1fr;
+    gap: 1em;
+  }
+
+  .category-item {
+    font-size: 1em;
+    padding: 0.8em;
+  }
+
+  .search-inputs-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .search-input,
+  .add-book-btn,
+  .back-to-categories {
+    width: 100%;
+    max-width: none;
+    text-align: center;
+  }
+
+  /* Make book list more card-like for phones */
+  .book-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    overflow: visible;
+  }
+
+  .book-header {
+    display: none; /* Hide table header on mobile */
+  }
+
+  .book-row {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1em;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .book-row > div {
+    padding: 0.4em 0;
+    border: none;
+  }
+
+  .book-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: 0.2em;
+  }
+
+  .book-author,
+  .book-isbn,
+  .book-status {
+    font-size: 0.95em;
+  }
+
+  .book-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5em;
+    margin-top: 0.6em;
+  }
+
+  .btn-action {
+    width: 100%;
+    font-size: 0.95em;
+    padding: 0.7em;
+  }
+
+  .kebab-button {
+    align-self: flex-end;
+  }
+
+  .add-edit-form-modal-content {
+    width: 90%;
+    padding: 1.5em;
+  }
+  .category-search, .search-input {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+ 
+  }
+}
+
+/* --- Very small screens (under 480px) --- */
+@media (max-width: 480px) {
+  .category-title {
+    font-size: 1.5em;
+  }
+
+  .category-item {
+    font-size: 0.9em;
+    padding: 0.6em;
+  }
+
+  .book-row {
+    padding: 0.8em;
+  }
+
+  .btn-action {
+    font-size: 0.9em;
+    padding: 0.6em;
+  }
+
+  .search-input {
+    font-size: 0.9em;
+  }
+  
 }

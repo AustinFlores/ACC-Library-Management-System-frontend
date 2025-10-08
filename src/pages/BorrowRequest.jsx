@@ -3,7 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Header from './Header';
-import { useAuth } from '../context/AuthContext'; // Import useAuth to get student details
+import SuccessNotification from './SuccessNotification';
+import { useAuth } from '../context/AuthContext';
 import '../styles/BorrowRequest.css';
 
 function BorrowRequest() {
@@ -11,6 +12,7 @@ function BorrowRequest() {
   const navigate = useNavigate();
   const { user, isLoggedIn } = useAuth();
   const { book } = location.state || {};
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const [pickupDate, setPickupDate] = useState('');
   const [pickupTime, setPickupTime] = useState('');
@@ -29,16 +31,16 @@ function BorrowRequest() {
     if (!isLoggedIn) {
       setSubmissionMessage('You must be logged in to borrow books.');
       setMessageType('error');
-      setTimeout(() => navigate('/signin', { replace: true }), 2000);
+      setTimeout(() => navigate('/', { replace: true }), 2000);
       return;
     }
     if (user && user.role !== 'student') {
-        setSubmissionMessage('Only students can borrow books.');
-        setMessageType('error');
-        setTimeout(() => navigate('/student/dashboard', { replace: true }), 2000);
-        return;
+      setSubmissionMessage('Only students can borrow books.');
+      setMessageType('error');
+      setTimeout(() => navigate('/student/dashboard', { replace: true }), 2000);
+      return;
     }
-  }, [book, isLoggedIn, user, navigate]); // Added isLoggedIn and user to dependencies
+  }, [book, isLoggedIn, user, navigate]);
 
   // If initial checks fail, display message and prevent rendering the form
   if (!book || !isLoggedIn || !user || user.role !== 'student') {
@@ -47,8 +49,8 @@ function BorrowRequest() {
         <Header />
         <div className="borrow-request-page">
           <div className="borrow-request-container">
-             <h2 className="borrow-request-title">Access Denied</h2>
-             <p className={`submission-message ${messageType}`}>{submissionMessage}</p>
+            <h2 className="borrow-request-title">Access Denied</h2>
+            <p className={`submission-message ${messageType}`}>{submissionMessage}</p>
           </div>
         </div>
       </>
@@ -65,11 +67,11 @@ function BorrowRequest() {
       setMessageType('error');
       return;
     }
-    
+
     if (!user.id) {
-        setSubmissionMessage('Your student ID is missing. Cannot submit request.');
-        setMessageType('error');
-        return;
+      setSubmissionMessage('Your student ID is missing. Cannot submit request.');
+      setMessageType('error');
+      return;
     }
 
     try {
@@ -81,11 +83,17 @@ function BorrowRequest() {
       });
 
       if (response.data.success) {
-        setSubmissionMessage('Borrow request submitted successfully! You will receive a confirmation shortly.');
+        setShowSuccess(true); // ✅ show popup notification
+        setSubmissionMessage('');
         setMessageType('success');
         setPickupDate('');
         setPickupTime('');
-        setTimeout(() => navigate('/student/dashboard', { replace: true }), 3000);
+
+        // Redirect after 3 seconds
+        setTimeout(() => {
+          setShowSuccess(false);
+          navigate('/student/dashboard', { replace: true });
+        }, 3000);
       } else {
         setSubmissionMessage(`Failed to submit request: ${response.data.message || 'Server error'}`);
         setMessageType('error');
@@ -104,9 +112,9 @@ function BorrowRequest() {
       <div className="borrow-request-page">
         <div className="borrow-request-container">
           <h2 className="borrow-request-title">Request to Borrow: {book.title}</h2>
-          <p className="book-details">**Author:** {book.author}</p>
-          <p className="book-details">**Category:** {book.category}</p>
-          <p className="book-details">**ISBN:** {book.isbn}</p>
+          <p className="book-details"><b>Author:</b> {book.author}</p>
+          <p className="book-details"><b>Category:</b> {book.category}</p>
+          <p className="book-details"><b>ISBN:</b> {book.isbn}</p>
 
           <form onSubmit={handleSubmitRequest} className="borrow-form">
             <label htmlFor="pickupDate">Preferred Pickup Date:</label>
@@ -130,9 +138,19 @@ function BorrowRequest() {
             <button type="submit" className="submit-borrow-btn">Submit Borrow Request</button>
           </form>
 
-          {submissionMessage && <p className={`submission-message ${messageType}`}>{submissionMessage}</p>}
+          {submissionMessage && (
+            <p className={`submission-message ${messageType}`}>{submissionMessage}</p>
+          )}
         </div>
       </div>
+
+      {/* ✅ Success notification popup */}
+      {showSuccess && (
+        <SuccessNotification
+          message="✅ Borrow request submitted successfully!"
+          onClose={() => setShowSuccess(false)}
+        />
+      )}
     </div>
   );
 }

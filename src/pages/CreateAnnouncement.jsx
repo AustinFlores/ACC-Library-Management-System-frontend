@@ -110,12 +110,12 @@ function CreateAnnouncement() {
     }
   };
 
-  if (!user || (user.role !== "librarian" && user.role !== "admin")) {
+  if (!user || (user.role !== "librarian")) {
     return <p>You are not authorized to manage announcements.</p>;
   }
 
   return (
-    <div className="admin-page-content">
+    <div className="librarian-page-content">
       <h1 className="dashboard-header">
         {editingId ? "Edit Announcement" : "Create Announcement"}
       </h1>

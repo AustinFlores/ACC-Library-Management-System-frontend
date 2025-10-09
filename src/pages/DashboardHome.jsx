@@ -119,7 +119,8 @@ function DashboardHome() {
   }
 
   return (
-    <div>
+    <div className="librarian-page-content">
+      
       <h1 className="dashboard-header">Dashboard Overview</h1>
 
       <div className="stat-cards-container">
@@ -128,7 +129,7 @@ function DashboardHome() {
           <p>{stats.totalBooks}</p>
         </div>
         <div className="stat-card">
-          <h2>Books on Loan</h2>
+          <h2>Total Borrowed Books</h2>
           <p>{stats.borrowedBooks}</p>
         </div>
         <div className="stat-card">
@@ -167,7 +168,7 @@ function DashboardHome() {
             <>
               {overdueBooks.length > 0 && (
                 <div className="pending-section overdue-books">
-                  <h3>Overdue Books ({overdueBooks.length})</h3>
+                  <h3>Overdue Borrowings ({overdueBooks.length})</h3>
                   <ul>
                     {overdueBooks.map(book => (
                       <li key={book.id}>

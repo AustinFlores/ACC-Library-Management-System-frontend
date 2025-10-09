@@ -21,6 +21,7 @@ import OverdueBooks from './pages/OverdueBooks.jsx';
 
 // Librarian/Admin Dashboard Components
 import LibrarianDashboard from './pages/LibrarianDashboard.jsx';
+import LibrarianBrowseBooks from './pages/LibrarianBrowseBooks.jsx';
 import ProtectedRoute from './pages/ProtectedRoute.jsx';
 import DashboardHome from './pages/DashboardHome.jsx';
 import ManageStudents from './pages/ManageStudents.jsx'; 
@@ -71,7 +72,7 @@ function App() {
             <Route index element={<DashboardHome />} /> 
             {/* Specific routes within the librarian dashboard */}
             <Route path="dashboard" element={<DashboardHome />} />
-            <Route path="manage-books" element={<BrowseBooks />} />
+            <Route path="manage-books" element={<LibrarianBrowseBooks />} />
             <Route path="manage-students" element={<ManageStudents />} />
             <Route path="view-bookings" element={<ViewBookings />} />
             <Route path="return-book" element={<ScanReturnBook />} />

@@ -19,7 +19,7 @@
 
 .dashboard-sidebar {
   width: 20%;
-  background-color: var(--primary-blue);
+  background: linear-gradient(to top, #0f2e68, #3171d1);
   color: var(--light-text);
   position: fixed;
   height: 100%;
@@ -34,7 +34,17 @@
   margin-top: 3.5em;
 }
 
-.admin-page-content .page-description {
+.librarian-page-content {
+  margin: auto;
+  max-width: 80%;
+  min-width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-block: 4em;
+}
+
+.librarian-page-content .page-description {
   margin-bottom: 1.2em;
   text-align: center;
 }
@@ -85,7 +95,7 @@
 }
 
 .sidebar-nav a.active {
-  background-color: #1a3b7a;
+  background-color: rgba(26, 59, 122, 0.5);
   color: var(--light-text);
   font-weight: bold;
   border-left: 4px solid var(--accent-yellow);
@@ -94,10 +104,10 @@
 .dashboard-content {
   flex-grow: 1;
   margin-left: 20%;
-  padding: 2rem 3rem;
-  background-color: #a0b2d3;
+  background: linear-gradient(to top, #a0b2d3, #f4f7fa);
   overflow-y: auto;
 }
+
 
 .dashboard-header {
   font-size: 2rem;
@@ -119,9 +129,8 @@
   cursor: pointer;
 }
 
-.sidebar-profile-icon:hover {
-  opacity: 1;
-  color: var(--light-text);
+.sidebar-container .librarian-greeting {
+  font-size: 1.2rem;
 }
 
 .dashboard-sidebar .dropdown-menu {

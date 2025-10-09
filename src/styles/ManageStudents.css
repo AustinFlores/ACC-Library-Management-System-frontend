@@ -6,12 +6,12 @@
 */
 
 /* --- Table Grid Layout for Manage Students --- */
-.admin-page-content table.data-table {
+.librarian-page-content table.data-table {
   /* Default grid for larger screens (7 columns) */
   grid-template-columns: var(--manage-students-grid-columns, 1fr 1.2fr 1fr 1fr 1fr 1fr); 
 }
 
-.admin-page-content table.data-table.bookings-table {
+.librarian-page-content table.data-table.bookings-table {
   /* Default grid for larger screens (7 columns) */
   grid-template-columns: var(--manage-students-grid-columns, 1.2fr 1.6fr 1fr 1fr 1fr 1fr 1fr 1fr); 
 }
@@ -34,12 +34,12 @@
 
 /* --- Specific Cell Alignment / Overrides --- */
 /* If you need specific text alignment for columns in THIS table, define here */
-.admin-page-content table.data-table td:nth-child(1), /* ID */
-.admin-page-content table.data-table th:nth-child(1) {
+.librarian-page-content table.data-table td:nth-child(1), /* ID */
+.librarian-page-content table.data-table th:nth-child(1) {
   text-align: left;
 }
-.admin-page-content table.data-table td:nth-child(6), /* Status */
-.admin-page-content table.data-table th:nth-child(6) {
+.librarian-page-content table.data-table td:nth-child(6), /* Status */
+.librarian-page-content table.data-table th:nth-child(6) {
   text-align: center;
 }
 
@@ -57,41 +57,41 @@
 /* Desktop (default) should have 7 columns */
 
 @media (max-width: 1200px) {
-  .admin-page-content table.data-table {
+  .librarian-page-content table.data-table {
     /* Hide Course for smaller desktops */
     grid-template-columns: var(--manage-students-grid-columns, 0.8fr 1.5fr 1.5fr 1fr 1fr 1.2fr); /* 6 columns */
   }
-  .admin-page-content table.data-table th:nth-child(4), /* Course header */
-  .admin-page-content table.data-table td:nth-child(4) { /* Course data */
+  .librarian-page-content table.data-table th:nth-child(4), /* Course header */
+  .librarian-page-content table.data-table td:nth-child(4) { /* Course data */
     display: none;
   }
 }
 
 @media (max-width: 992px) {
-  .admin-page-content table.data-table {
+  .librarian-page-content table.data-table {
     /* Hide Year Level */
     grid-template-columns: var(--manage-students-grid-columns, 0.8fr 1.5fr 1.5fr 1fr 1.2fr); /* 5 columns */
   }
-  .admin-page-content table.data-table th:nth-child(5), /* Year Level header */
-  .admin-page-content table.data-table td:nth-child(5) { /* Year Level data */
+  .librarian-page-content table.data-table th:nth-child(5), /* Year Level header */
+  .librarian-page-content table.data-table td:nth-child(5) { /* Year Level data */
     display: none;
   }
 }
 
 @media (max-width: 768px) {
-  .admin-page-content table.data-table {
+  .librarian-page-content table.data-table {
     /* Hide Email */
     grid-template-columns: var(--manage-students-grid-columns, 1fr 1.5fr 1fr 1.2fr); /* 4 columns */
   }
-  .admin-page-content table.data-table th:nth-child(3), /* Email header */
-  .admin-page-content table.data-table td:nth-child(3) { /* Email data */
+  .librarian-page-content table.data-table th:nth-child(3), /* Email header */
+  .librarian-page-content table.data-table td:nth-child(3) { /* Email data */
     display: none;
   }
 
 }
 
 @media (max-width: 576px) {
-  .admin-page-content table.data-table {
+  .librarian-page-content table.data-table {
     /* Hide Name */
     grid-template-columns: var(--manage-students-grid-columns, 1fr 1fr 1.2fr); /* 3 columns */
   }

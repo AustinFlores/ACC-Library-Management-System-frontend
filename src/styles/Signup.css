@@ -1,7 +1,6 @@
 /* Overall Signup Page */
 .signup-page {
-  background-color: #174996;
-  /* Allow the page to grow and scroll instead of forcing fixed viewport height */
+  background: linear-gradient(to left, #0f2e68, #3171d1);
   min-height: 100vh;
   max-height: 100%;
   display: flex;
@@ -36,7 +35,7 @@
 /* Success/Error Messages */
 .signup-message {
   text-align: center;
-  font-size: 14px;
+  font-size: 1.2rem;
   font-weight: 600;
   margin: 10px 0;
 }

@@ -41,7 +41,7 @@ function VisitLibrary() {
     <>
     <Header />
     <div className="visit-container">
-      
+      <div className="visit-form-content">
       <h1 className="visit-title">Plan Your Visit</h1>
       <p className="visit-intro">
         To ensure a safe and comfortable experience for all patrons, please book
@@ -51,11 +51,12 @@ function VisitLibrary() {
       <div className="info-section">
         <h3>Before You Visit</h3>
         <ul>
-          <li>Address: 123 Main Street, Springfield</li>
+          <li>Address:  Mayapa, Calamba City</li>
           <li>Opening Hours: Mon–Fri 9am–6pm, Sat 10am–4pm</li>
           <li>Maximum visit duration: 2 hours</li>
-          <li>Bring your library ID</li>
-          <li>No food or drinks allowed in reading areas</li>
+          <li>Bring your school ID and your library card</li>
+          <li>No food or drinks allowed</li>
+          <li>Please observe silence inside the library at all times</li>
         </ul>
       </div>
 
@@ -113,8 +114,9 @@ function VisitLibrary() {
           />
         </label>
 
-        <button type="submit" className="submit-btn">Book Visit</button>
+        <button type="submit" className="submit-btn">Schedule Visit</button>
       </form>
+    </div>
     </div>
     </>
   );

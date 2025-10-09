@@ -16,7 +16,7 @@ function ManageStudents() {
 
   // --- Authorization Check ---
   useEffect(() => {
-    if (!user || (user.role !== 'librarian' && user.role !== 'admin')) {
+    if (!user || (user.role !== 'librarian')) {
       setError('You are not authorized to access this page.');
       setTimeout(() => navigate('/librarian/dashboard', { replace: true }), 3000);
     }
@@ -68,17 +68,17 @@ function ManageStudents() {
   };
 
   if (loading) {
-    return <div className="admin-page-content"><p className="loading-message">Loading students...</p></div>;
+    return <div className="librarian-page-content"><p className="loading-message">Loading students...</p></div>;
   }
 
   if (error) {
-    return <div className="admin-page-content"><p className="error-message">{error}</p></div>;
+    return <div className="librarian-page-content"><p className="error-message">{error}</p></div>;
   }
 
   return (
-    <div className="admin-page-content">
+    <div className="librarian-page-content">
       <h1 className="dashboard-header">Manage Students</h1>
-      <p className="page-description">View, edit, or manage registered student accounts.</p>
+      <p className="page-description">View and manage registered student accounts.</p>
 
       <div className="data-table-container">
         <table className="data-table">

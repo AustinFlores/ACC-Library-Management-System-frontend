@@ -94,13 +94,13 @@ function ManageStudentBookings() {
       <Header />
       <div className="manage-student-bookings-page">
         <div className="manage-student-bookings-container">
-          <h1 className="manage-student-bookings-title">Your Active Bookings</h1>
+          <h1 className="manage-student-bookings-title">Your Active Appointments</h1>
           <p className="manage-student-bookings-description">
-            Here are your upcoming and pending library visit bookings.
+            Here are your upcoming and pending library visit schedules.
           </p>
 
           {bookings.length === 0 ? (
-            <p className="no-bookings">You currently have no active bookings.</p>
+            <p className="no-bookings">You currently have no active appointments.</p>
           ) : (
             <div className="student-bookings-list">
               <div className="student-booking-header">

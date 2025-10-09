@@ -76,22 +76,7 @@ function Header() {
                   </ul>
                 )}
               </div>
-            ) : (
-              <div className="profile" onClick={toggleDropdown}>
-                <img
-                  src="/images/guest-icon.png"
-                  alt="Guest"
-                  className={`profile-icon ${dropdownOpen ? "profile-active" : ""} guest`}
-                />
-                {dropdownOpen && (
-                  <ul className="dropdown-menu">
-                    <li>You are accessing the library as Guest</li>
-                    <li onClick={() => { navigate("/signin"); closeMenu(); }}>Sign in</li>
-                    <li onClick={() => { navigate("/signup"); closeMenu(); }}>Sign up</li>
-                  </ul>
-                )}
-              </div>
-            )}
+            ) : ("")}
           </div>
         </div>
       </div>

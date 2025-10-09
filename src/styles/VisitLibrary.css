@@ -1,10 +1,15 @@
 /* Container */
 .visit-container {
-  padding: 20px;
   font-family: Arial, sans-serif;
   color: white;
   background-color: #174996;
-  padding-top: 8em;
+  padding-block:8em;
+}
+
+.visit-form-content {
+  max-width: 80%;
+  margin: 0 auto;
+
 }
 
 /* Titles & Intro */
@@ -16,6 +21,7 @@
 
 .visit-intro {
   margin-bottom: 30px;
+  font-size: 1.1rem;
 }
 
 .info-section {
@@ -30,6 +36,7 @@
 .info-section h3 {
   margin-top: 0;
   margin-bottom: 0.8em;
+  font-size: 1.3rem;
 }
 
 .info-section ul {
@@ -51,6 +58,7 @@
   display: block;
   margin-bottom: 18px;
   font-weight: 500;
+  font-size: 1.15rem;
 }
 
 /* Inputs, selects, textarea */

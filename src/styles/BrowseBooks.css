@@ -14,13 +14,23 @@
 
 
 /* --- General Category Page Layout --- */
-.category-page {
+.category-page, .librarian-category-page {
   position: relative;
-  min-height: calc(100vh - 6em); /* Adjust based on your header height */
   overflow: hidden; /* Ensures image doesn't overflow */
   padding-inline: 6em;
+  
+}
+
+.category-page {
   padding-top: 6em;
-  background-color: var(--primary-blue)
+  min-height: 100vh; /* Adjust based on your header height */
+  background: linear-gradient(to left, #0f2e68, #3171d1);
+}
+
+.librarian-category-page {
+  padding-top: 2em;
+  min-height: calc(100vh - 2em); /* Adjust based on your header height */
+  background: linear-gradient(to top, #a0b2d3, #f4f7fa);
 }
 
 .category-bg-image {
@@ -35,47 +45,32 @@
 }
 
 .category-page-container {
-  max-width: 1200px;
-  margin: 2em auto;
+  max-width: 90%;
+  margin: 4em auto;
 }
 
-.category-header {
+.category-header, .librarian-category-header {
   text-align: center;
   margin-bottom: 30px;
   color: var(--light-text); /* Changed to light text for contrast against dark image */
 }
 
-.category-title {
+.librarian-category-header {
+  text-align: left;
+}
+
+.category-title, .librarian-category-title {
   font-size: 2.5em;
   margin-bottom: 1.4em;
   color: var(--accent-yellow); /* Using accent color for title */
   text-align: center;
 }
 
-.category-search {
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-right: 10px;
-  width: 250px; /* Adjust width as needed */
-  background-color: var(--light-text);
-  color: var(--dark-text);
+.librarian-category-title {
+  text-align: left;
+  color: var(--primary-blue)
 }
 
-.category-search-button {
-  background-color: var(--accent-yellow);
-  color: var(--primary-blue);
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1em;
-  transition: background-color 0.3s ease;
-}
-
-.category-search-button:hover {
-  background-color: #a78120;
-}
 
 .category-list-container {
   background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent background for content */
@@ -114,9 +109,16 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
+.category-disclaimer {
+  margin-top: 1em;
+  font-size: 1em;
+  color: var(--light-text); /* Light text for readability */
+  text-align: center;
+}
+
 /* --- Book List Specific Styles --- */
-.book-list-view {
-  padding-top: 8em; /* Consistent padding when showing book list */
+.category-page .book-list-view {
+  padding-top: 10em; /* Consistent padding when showing book list */
 }
 
 .add-book-btn {
@@ -144,21 +146,26 @@
   justify-content: center; /* Center search inputs */
 }
 
-.search-input {
+.search-input, .category-search {
   padding: 10px 15px;
   border: 1px solid var(--border-color);
   border-radius: 5px;
-  width: 200px;
+
   flex-grow: 1; /* Allow inputs to grow if space available */
-  max-width: 250px; /* Limit max width */
+  max-width: 100%;
   font-size: 1em;
   color: var(--dark-text);
   background-color: var(--light-text);
 }
-.search-input:focus {
+.search-input:focus, .category-search:focus {
   outline: 2px solid var(--accent-yellow);
   border-color: var(--primary-blue);
   background-color: var(--light-text); /* White background on focus */
+}
+
+.category-search {
+  max-width: 100%;
+  width: 30%;
 }
 
 .back-to-categories {
@@ -549,11 +556,6 @@
   .category-search {
     width: 100%;
     margin: 0 0 10px 0;
-  }
-
-  .category-search-button {
-    width: 100%;
-    padding: 12px;
   }
 
   .category-list {

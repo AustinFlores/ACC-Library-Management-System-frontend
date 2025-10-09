@@ -39,45 +39,15 @@ function Sidebar() {
 
         <nav className="sidebar-nav">
           <NavLink to="/librarian/dashboard" end>Dashboard</NavLink>
-          <NavLink to="/browse-books">Manage Books</NavLink>
+          <NavLink to="/librarian/manage-books">Manage Books</NavLink>
           <NavLink to="/librarian/manage-students">Manage Students</NavLink>
-          <NavLink to="/librarian/view-bookings">View Bookings</NavLink>
+          <NavLink to="/librarian/view-bookings">View Appointments</NavLink>
           <NavLink to="/librarian/return-book">Return Book</NavLink>
           <NavLink to="/librarian/create-announcement">Create Announcement</NavLink>
+          <NavLink onClick={handleLogout} to="/">Logout</NavLink>
         </nav>
 
-        <div className="profile-container" ref={dropdownRef}>
-          {isLoggedIn ? (
-            <div className="profile" onClick={toggleDropdown}>
-              <img
-                src="/images/guest-icon.png"
-                alt="Profile"
-                className={`profile-icon ${dropdownOpen ? "profile-active" : ""}`}
-              />
-              {dropdownOpen && (
-                <ul className="dropdown-menu">
-                  <li className="welcome-text">Welcome, {user.name}</li>
-                  <li onClick={handleLogout}>Logout</li>
-                </ul>
-              )}
-            </div>
-          ) : (
-            <div className="profile" onClick={toggleDropdown}>
-              <img
-                src="/images/guest-icon.png"
-                alt="Guest"
-                className={`profile-icon ${dropdownOpen ? "profile-active" : ""} guest`}
-              />
-              {dropdownOpen && (
-                <ul className="dropdown-menu">
-                  <li>You are accessing the library as Guest</li>
-                  <li onClick={() => navigate("/signin")}>Sign in</li>
-                  <li onClick={() => navigate("/signup")}>Sign up</li>
-                </ul>
-              )}
-            </div>
-          )}
-        </div>
+        <div className="librarian-greeting">Hello, {user.name}</div>
       </div>
     </aside>
   );

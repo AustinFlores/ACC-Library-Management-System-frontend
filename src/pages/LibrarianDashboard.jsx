@@ -9,7 +9,9 @@ function LibrarianDashboard() {
       <div className="dashboard-container">
         <Sidebar />
         <main className="dashboard-content">
-          <Outlet /> {/* Child routes will render here */}
+          <div className="dashboard-content-wrapper">
+            <Outlet /> {/* Child routes will render here */}
+          </div>
         </main>
       </div>
     </>

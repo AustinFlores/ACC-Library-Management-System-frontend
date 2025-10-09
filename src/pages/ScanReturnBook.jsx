@@ -26,7 +26,7 @@ function ScanReturnBook() {
 
   // --- Authorization Check ---
   useEffect(() => {
-    if (!user || (user.role !== "librarian" && user.role !== "admin")) {
+    if (!user || (user.role !== "librarian")) {
       setStatusMessage({
         type: "error",
         text: "You are not authorized to access this page.",
@@ -197,7 +197,7 @@ function ScanReturnBook() {
   }, [isProcessing]); // keep same dependency as your original code
 
   return (
-    <div className="admin-page-content">
+    <div className="librarian-page-content">
       <h1 className="dashboard-header">Book Return (Scan QR)</h1>
       <p className="page-description">
         Scan the QR code on a book to mark it as returned and available.

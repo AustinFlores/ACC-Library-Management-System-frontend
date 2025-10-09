@@ -83,8 +83,8 @@ function ViewBookings() {
   console.log(bookings.map(booking => booking.date));
 
   return (
-    <div className="admin-page-content">
-      <h1 className="dashboard-header">View Bookings</h1>
+    <div className="librarian-page-content">
+      <h1 className="dashboard-header">View Appointments</h1>
       <p className="page-description">Review and manage scheduled library visits.</p>
 
       <div className="data-table-container">

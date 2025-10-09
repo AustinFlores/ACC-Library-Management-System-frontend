@@ -10,7 +10,7 @@
 }
 
 .student-dashboard-page {
-    background-color: var(--primary-blue);
+    background: linear-gradient(to left, #0f2e68, #3171d1);
     display:flex;
     justify-content: center;
 

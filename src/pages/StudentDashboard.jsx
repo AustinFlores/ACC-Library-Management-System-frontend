@@ -111,19 +111,19 @@ function StudentDashboard() {
 
         <div className="student-stats-grid">
           <div className="stat-card">
-            <h2>Books on Loan</h2>
+            <h2>Borrowed Books</h2>
             <p>{stats.booksOnLoan}</p>
             <Link to="/student/borrowed-books" className="view-details-link">View Details</Link>
           </div>
           <div className="stat-card">
-            <h2>Overdue Books</h2>
+            <h2>Overdue Borrowings</h2>
             <p className={stats.overdueBooks > 0 ? 'overdue' : ''}>{stats.overdueBooks}</p>
             <Link to="/student/overdue-books" className="view-details-link">View Details</Link>
           </div>
           <div className="stat-card">
-            <h2>Active Bookings</h2>
+            <h2>Appointments</h2>
             <p>{stats.activeBookings}</p>
-            <Link to="/student/manage-bookings" className="view-details-link">Manage Bookings</Link>
+            <Link to="/student/manage-bookings" className="view-details-link">Manage Appointments</Link>
           </div>
         </div>
         
